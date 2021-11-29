@@ -123,10 +123,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Dependencies\glad\src\glad.c" />
-    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="Dependencies\OtherLibs\stb_image.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dependencies\glad\include\glad\glad.h" />
+    <ClInclude Include="Dependencies\glad\include\KHR\khrplatform.h" />
+    <ClInclude Include="Dependencies\OtherLibs\stb_image.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Shader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -21,28 +21,81 @@
     <ClCompile Include="Dependencies\OtherLibs\stb_image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
+    <ClCompile Include="Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Shader.cpp">
+    <ClCompile Include="Source.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Program.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Dependencies\OtherLibs\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Dependencies\glad\include\glad\glad.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Dependencies\glad\include\KHR\khrplatform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Dependencies\OtherLibs\stb_image.h">
+    <ClInclude Include="Dependencies\GLFW\include\GLFW\glfw3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
+    <ClInclude Include="Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Shader.h">
+    <ClInclude Include="ResourceManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MarioGame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\ModelStage\NES - Super Mario Bros - World 1-1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Tiles\NES - Super Mario Bros - Background 1 Mountains.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Tiles\NES - Super Mario Bros - Background 2 Trees.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Tiles\NES - Super Mario Bros - Background 3 Clouds.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Tiles\NES - Super Mario Bros - Enemies &amp; Bosses.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Tiles\NES - Super Mario Bros - Item and Brick Blocks.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Tiles\NES - Super Mario Bros - Items Objects and NPCs.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Tiles\NES - Super Mario Bros - Mario &amp; Luigi.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Tiles\NES - Super Mario Bros - Tileset.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Tiles\NES - Super Mario Bros - Title Screen HUD and Miscellaneous.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

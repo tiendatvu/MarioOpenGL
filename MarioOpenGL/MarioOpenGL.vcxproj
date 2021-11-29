@@ -124,15 +124,34 @@
   <ItemGroup>
     <ClCompile Include="Dependencies\glad\src\glad.c" />
     <ClCompile Include="Dependencies\OtherLibs\stb_image.cpp" />
-    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="MarioGame.cpp" />
+    <ClCompile Include="Program.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dependencies\glad\include\glad\glad.h" />
     <ClInclude Include="Dependencies\glad\include\KHR\khrplatform.h" />
+    <ClInclude Include="Dependencies\GLFW\include\GLFW\glfw3.h" />
     <ClInclude Include="Dependencies\OtherLibs\stb_image.h" />
-    <ClInclude Include="Game.h" />
+    <ClInclude Include="MarioGame.h" />
+    <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="Texture.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\ModelStage\NES - Super Mario Bros - World 1-1.png" />
+    <Image Include="Assets\Tiles\NES - Super Mario Bros - Background 1 Mountains.png" />
+    <Image Include="Assets\Tiles\NES - Super Mario Bros - Background 2 Trees.png" />
+    <Image Include="Assets\Tiles\NES - Super Mario Bros - Background 3 Clouds.png" />
+    <Image Include="Assets\Tiles\NES - Super Mario Bros - Enemies &amp; Bosses.png" />
+    <Image Include="Assets\Tiles\NES - Super Mario Bros - Item and Brick Blocks.png" />
+    <Image Include="Assets\Tiles\NES - Super Mario Bros - Items Objects and NPCs.png" />
+    <Image Include="Assets\Tiles\NES - Super Mario Bros - Mario &amp; Luigi.png" />
+    <Image Include="Assets\Tiles\NES - Super Mario Bros - Tileset.png" />
+    <Image Include="Assets\Tiles\NES - Super Mario Bros - Title Screen HUD and Miscellaneous.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

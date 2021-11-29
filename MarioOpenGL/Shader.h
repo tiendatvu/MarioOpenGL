@@ -13,7 +13,7 @@
 class Shader
 {
 public:
-    // state
+    // Holds the ID of the shader object, used for all shader operations to reference to this particular shader
     unsigned int ID;
     // constructor
     Shader() {};

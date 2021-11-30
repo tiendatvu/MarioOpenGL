@@ -97,7 +97,7 @@ Texture2D ResourceManager::loadTextureFromFile(const char *file, bool alpha)
     Texture2D texture;
     if (alpha)
     {
-        texture.Internal_Format = GL_RGB;
+        texture.Internal_Format = GL_RGBA;
         texture.Image_Format = GL_RGBA;
         texture.Wrap_S = GL_CLAMP_TO_EDGE;
         texture.Wrap_T = GL_CLAMP_TO_EDGE;

@@ -129,6 +129,7 @@
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +140,7 @@
     <ClInclude Include="MarioGame.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
@@ -152,6 +154,10 @@
     <Image Include="Assets\Tiles\NES - Super Mario Bros - Mario &amp; Luigi.png" />
     <Image Include="Assets\Tiles\NES - Super Mario Bros - Tileset.png" />
     <Image Include="Assets\Tiles\NES - Super Mario Bros - Title Screen HUD and Miscellaneous.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\sprite.frs" />
+    <None Include="Shaders\sprite.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

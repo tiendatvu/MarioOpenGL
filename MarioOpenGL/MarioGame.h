@@ -4,6 +4,8 @@
 #include <glad\glad.h>
 #include <GLFW\glfw3.h>
 
+#include "SpriteRenderer.h"
+
 // Represent the current state of the game
 enum GameState {
     GAME_ACTIVE,
@@ -30,5 +32,7 @@ public:
     void ProcessInput(float dt);
     void Update(float dt);
     void Render();
+private:
+    SpriteRenderer *GameRenderer;
 };
 #endif // !MARIO_GAME_H

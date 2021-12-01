@@ -33,9 +33,16 @@
 class RegionOfInterest
 {
 public:
-    glm::vec2 Region;
-    glm::vec2 Offset;
+    // Ranging from [0:1][0:1] = [0:width][0:height]
+    glm::vec2 RegionScale;
+    // Ranging from [0:1][0:1] = [0:width][0:height]
+    glm::vec2 OffsetScale;
+    // Size to display on the screen
     glm::vec2 Size;
+
+    RegionOfInterest(glm::vec2 region, glm::vec2 offset, glm::vec2 size) 
+    : RegionScale(region), OffsetScale(offset), Size(size)
+    {}
 };
 
 class MultiSpriteGameObject

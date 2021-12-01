@@ -42,6 +42,12 @@
     <ClCompile Include="SpriteRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameLevel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dependencies\OtherLibs\stb_image.h">
@@ -71,41 +77,48 @@
     <ClInclude Include="SpriteRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLevel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\ModelStage\NES - Super Mario Bros - World 1-1.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Tiles\NES - Super Mario Bros - Background 1 Mountains.png">
+    <Image Include="Assets\Tiles\NES_SuperMarioBros_Background1Mountains.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Tiles\NES - Super Mario Bros - Background 2 Trees.png">
+    <Image Include="Assets\Tiles\NES_SuperMarioBros_Background2Trees.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Tiles\NES - Super Mario Bros - Background 3 Clouds.png">
+    <Image Include="Assets\Tiles\NES_SuperMarioBros_Background3Clouds.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Tiles\NES - Super Mario Bros - Enemies &amp; Bosses.png">
+    <Image Include="Assets\Tiles\NES_SuperMarioBros_ItemAndBrickBlocks.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Tiles\NES - Super Mario Bros - Item and Brick Blocks.png">
+    <Image Include="Assets\Tiles\NES_SuperMarioBros_ItemsObjectsAndNPCs.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Tiles\NES - Super Mario Bros - Items Objects and NPCs.png">
+    <Image Include="Assets\Tiles\NES_SuperMarioBros_MarioAndLuigi.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Tiles\NES - Super Mario Bros - Mario &amp; Luigi.png">
+    <Image Include="Assets\Tiles\NES_SuperMarioBros_Tileset.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Tiles\NES - Super Mario Bros - Tileset.png">
+    <Image Include="Assets\Tiles\NES_SuperMarioBros_TitleScreenHUDAndMiscellaneous.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Tiles\NES - Super Mario Bros - Title Screen HUD and Miscellaneous.png">
+    <Image Include="Assets\Tiles\NES_SuperMarioBros-EnemiesAndBosses.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\sprite.vs" />
     <None Include="Shaders\sprite.frs" />
+    <None Include="Shaders\sprite.vs" />
+    <None Include="Assets\Levels\OverWorld.lvl" />
   </ItemGroup>
 </Project>

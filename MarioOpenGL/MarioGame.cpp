@@ -44,10 +44,18 @@ void MarioGame::Init()
     // set render-specific controls
     GameRenderer = new SpriteRenderer(shader);
     // Load textures
-    ResourceManager::LoadTexture("MarioOpenGL/Assets/Tiles/ItemAndBrick.png", true, "itemAndBrick");
-    //ResourceManager::LoadTexture("MarioOpenGL/Assets/Images/background.jpg", false, "background");
-
     
+    ResourceManager::LoadTexture("MarioOpenGL/Assets/Tiles/NES_SuperMarioBros_ItemAndBrickBlocks.png", true, "ItemAndBrick");
+    ResourceManager::LoadTexture("MarioOpenGL/Assets/Tiles/NES_SuperMarioBros_Tileset.png", false, "Tileset");
+    ResourceManager::LoadTexture("MarioOpenGL/Assets/Tiles/block.png", false, "block");
+    
+    // load levels
+    GameLevel overWorldLv; overWorldLv.Load("MarioOpenGL/Assets/Levels/OverWorld.lvl", this->Width, this->Height);
+    this->Levels.push_back(overWorldLv);
+    this->LevelIdx = 0;
+
+    // load mario player
+
 }
 
 void MarioGame::Update(float dt)
@@ -62,9 +70,6 @@ void MarioGame::ProcessInput(float dt)
 
 void MarioGame::Render()
 {
-    // draw background
-    Texture2D background = ResourceManager::GetTexture("itemAndBrick");
-    GameRenderer->DrawSprite(background, glm::vec2(0.0f, 0.0f),
-                             glm::vec2(1.0f, 1.0f), glm::vec2(0.0f, 0.0f),
-                             glm::vec2(this->Width, this->Height), 0.0f, glm::vec3(1.0f));
+    // draw level
+    this->Levels[this->LevelIdx].Draw(*this->GameRenderer);
 }

@@ -5,6 +5,7 @@
 #include <GLFW\glfw3.h>
 
 #include "SpriteRenderer.h"
+#include "GameLevel.h"
 
 // Represent the current state of the game
 enum GameState {
@@ -23,6 +24,8 @@ public:
     GameState State;
     bool Keys[1024];
     unsigned int Width, Height;
+    std::vector<GameLevel> Levels;
+    unsigned int           LevelIdx;
     // Contructor/Destructor
     MarioGame(unsigned int width, unsigned int height);
     ~MarioGame();

@@ -3,6 +3,8 @@
 #include <fstream>
 #include <sstream>
 
+static std::string solDir = _SOLUTION_DIR;
+
 void GameLevel::Load(const char *file, unsigned int levelWidth, unsigned int levelHeight)
 {
     // clear old data
@@ -11,15 +13,15 @@ void GameLevel::Load(const char *file, unsigned int levelWidth, unsigned int lev
     unsigned int tileCode;
     GameLevel level;
     std::string line;
-    std::ifstream fstream(file);
-    std::vector<std::vector<unsigned int>> tileData;
+    std::ifstream fstream(solDir + file);
+    std::vector<std::vector<unsigned char>> tileData;
 
     if (fstream)
     {
         while (std::getline(fstream, line)) // read each line from level file
         {
             std::istringstream sstream(line);
-            std::vector<unsigned int> row;
+            std::vector<unsigned char> row;
             while (sstream >> tileCode) // read each word seperated by clause
             {
                 row.push_back(tileCode);
@@ -71,6 +73,17 @@ void GameLevel::init(std::vector<std::vector<unsigned char>> tileData, unsigned 
             default:
                 break;
             }
+
+            // TEST
+            glm::vec3 color = glm::vec3(1.0f, 0.5f, 0.0f);
+
+            glm::vec2 pos(unitWidth * x, unitHeight * y);
+            glm::vec2 size(unitWidth, unitHeight);
+
+            MultiSpriteGameObject tmp = MultiSpriteGameObject(pos, size, ResourceManager::GetTexture("block"), color);
+            RegionOfInterest* region = new RegionOfInterest(glm::vec2(1,1), glm::vec2(1, 1), size);
+            tmp.Rois.push_back(region);
+            this->Bricks.push_back(tmp);
         }
     }
 }

@@ -1,6 +1,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "Util.h"
 #include "MarioGame.h"
 #include "ResourceManager.h"
 #include <iostream>
@@ -10,9 +11,9 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height);
 void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode);
 
 // The width of the screen
-const unsigned int SCREEN_WIDTH = 800;
+const unsigned int SCREEN_WIDTH = Util::CAMERA_WIDTH * Util::TILE_SCALE;
 // The height of the screen
-const unsigned int SCREEN_HEIGHT = 800;
+const unsigned int SCREEN_HEIGHT = Util::CAMERA_HEIGHT * Util::TILE_SCALE;
 
 MarioGame MarioGameObj(SCREEN_WIDTH, SCREEN_HEIGHT);
 

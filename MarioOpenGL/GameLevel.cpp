@@ -1,4 +1,5 @@
 #include "GameLevel.h"
+#include "Util.h"
 
 #include <fstream>
 #include <sstream>
@@ -44,6 +45,8 @@ void GameLevel::Draw(SpriteRenderer &renderer)
             tile.Draw(renderer);
         }
     }
+
+    //this->Bricks[0].Draw(renderer);
 }
 
 void GameLevel::init(std::vector<std::vector<unsigned char>> tileData, unsigned int levelWidth, unsigned int levelHeight)
@@ -51,47 +54,49 @@ void GameLevel::init(std::vector<std::vector<unsigned char>> tileData, unsigned 
     // calculate dimensions
     unsigned int height = tileData.size();
     unsigned int width = tileData[0].size();  // note we can index vector at [0] since this function is only called if height > 0    
-    Texture2D tileSet = ResourceManager::GetTexture("Tileset");
+    Texture2D tileSetSprite = ResourceManager::GetTexture("Tileset");
     float unitWidth = 16.0f;
     float unitHeight = 16.0f;
-    glm::vec2 regionScale = glm::vec2(unitWidth / tileSet.Width, unitHeight / tileSet.Height);
+    glm::vec2 regionScale = glm::vec2(unitWidth / tileSetSprite.Width, unitHeight / tileSetSprite.Height);
 
     // Define brick types
-    glm::vec2 size(unitWidth, unitHeight);
+    glm::vec2 tileSize(unitWidth, unitHeight); // tile size in the sprite sheet
     MultiSpriteGameObject tmp;
-    RegionOfInterest* groundRegion = new RegionOfInterest(regionScale, glm::vec2(0.0f, 16.0f / tileSet.Height), size);
-    RegionOfInterest* breakableBrickRegion = new RegionOfInterest(regionScale, glm::vec2(17.0f / tileSet.Width, 16.0f / tileSet.Height), size);
-    RegionOfInterest* brickRegion = new RegionOfInterest(regionScale, glm::vec2(34.0f / tileSet.Width, 16.0f / tileSet.Height), size);
-    RegionOfInterest* questionRegion = new RegionOfInterest(regionScale, glm::vec2(298.0f / tileSet.Width, 78.0f / tileSet.Height), size);
-    RegionOfInterest* backgroundRegion = new RegionOfInterest(regionScale, glm::vec2(349.0f / tileSet.Width, 33.0f / tileSet.Height), size);
-    
+    RegionOfInterest* groundRegion = new RegionOfInterest(regionScale, glm::vec2(0.0f, 16.0f / tileSetSprite.Height), tileSize);
+    RegionOfInterest* breakableBrickRegion = new RegionOfInterest(regionScale, glm::vec2(17.0f / tileSetSprite.Width, 16.0f / tileSetSprite.Height), tileSize);
+    RegionOfInterest* brickRegion = new RegionOfInterest(regionScale, glm::vec2(34.0f / tileSetSprite.Width, 16.0f / tileSetSprite.Height), tileSize);
+    RegionOfInterest* questionRegion = new RegionOfInterest(regionScale, glm::vec2(298.0f / tileSetSprite.Width, 78.0f / tileSetSprite.Height), tileSize);
+    RegionOfInterest* backgroundRegion = new RegionOfInterest(regionScale, glm::vec2(349.0f / tileSetSprite.Width, 33.0f / tileSetSprite.Height), tileSize);
+
     // initialize level tiles based on tileData
+    //glm::vec2 unitSize(unitWidth * Util::TILE_SCALE, unitHeight * Util::TILE_SCALE); // size of the texture displayed on the screen
+    glm::vec2 unitSize(unitWidth, unitHeight); // size of the texture displayed on the screen
     for (unsigned int y = 0; y < height; y++)
     {
         for (unsigned int x = 0; x < width; x++)
-        {            
+        {
             glm::vec2 pos(unitWidth * x, unitHeight * y);
             // check block type from level data (2D level array)
             switch (tileData[y][x])
             {
             case 'G':
                 // Ground
-                tmp = MultiSpriteGameObject(pos, size, tileSet, glm::vec3(1, 1, 1));
+                tmp = MultiSpriteGameObject(pos, unitSize, tileSetSprite, glm::vec3(1, 1, 1));
                 tmp.Rois.push_back(groundRegion);
                 break;
             case 'b':
                 // breakable brick
-                tmp = MultiSpriteGameObject(pos, size, tileSet, glm::vec3(1, 1, 1));
+                tmp = MultiSpriteGameObject(pos, unitSize, tileSetSprite, glm::vec3(1, 1, 1));
                 tmp.Rois.push_back(breakableBrickRegion);
                 break;
             case 'B':
                 // Brick
-                tmp = MultiSpriteGameObject(pos, size, tileSet, glm::vec3(1, 1, 1));
+                tmp = MultiSpriteGameObject(pos, unitSize, tileSetSprite, glm::vec3(1, 1, 1));
                 tmp.Rois.push_back(brickRegion);
                 break;
             case '?':
                 // Question brick
-                tmp = MultiSpriteGameObject(pos, size, tileSet, glm::vec3(1, 1, 1));
+                tmp = MultiSpriteGameObject(pos, unitSize, tileSetSprite, glm::vec3(1, 1, 1));
                 tmp.Rois.push_back(questionRegion);
                 break;
             case '1':
@@ -107,7 +112,7 @@ void GameLevel::init(std::vector<std::vector<unsigned char>> tileData, unsigned 
                 // below right pipe
                 break;
             default:
-                tmp = MultiSpriteGameObject(pos, size, tileSet, glm::vec3(1, 1, 1));
+                tmp = MultiSpriteGameObject(pos, unitSize, tileSetSprite, glm::vec3(1, 1, 1));
                 tmp.Rois.push_back(backgroundRegion);
                 break;
             }

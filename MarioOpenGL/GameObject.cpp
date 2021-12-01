@@ -13,5 +13,5 @@ MultiSpriteGameObject::MultiSpriteGameObject(glm::vec2 pos, glm::vec2 size, Text
 
 void MultiSpriteGameObject::Draw(SpriteRenderer &renderer)
 {
-    renderer.DrawSprite(this->Sprite, this->Position, this->Rois[this->RoiIdx]->RegionScale, this->Rois[this->RoiIdx]->OffsetScale, this->Rois[this->RoiIdx]->Size, this->Rotation, this->Color);
+    renderer.DrawSprite(this->Sprite, this->Position, this->Rois[this->RoiIdx]->RegionScale, this->Rois[this->RoiIdx]->OffsetScale, this->Size, this->Rotation, this->Color);
 }

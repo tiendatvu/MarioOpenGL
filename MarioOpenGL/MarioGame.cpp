@@ -1,4 +1,5 @@
 ﻿
+#include "Util.h"
 #include "MarioGame.h"
 #include "ResourceManager.h"
 #include <iostream>
@@ -36,7 +37,10 @@ void MarioGame::Init()
     // };
     // như vậy, với position được định nghĩa, texture sẽ được render tại vị trí (0,0) đến (1,1) trên hệ trục tọa độ
     // -> texture sẽ được render tại top-left = gốc (0, 0) của bức ảnh
+    
     glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(this->Width), static_cast<float>(this->Height), 0.0f, -1.0f, 1.0f);    
+    //glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(this->Width / Util::TILE_SCALE), static_cast<float>(this->Height / Util::TILE_SCALE), 0.0f, -1.0f, 1.0f);
+    
     Shader shader = ResourceManager::GetShader("sprite");
     shader.Use();
     shader.SetInteger("image", 0);

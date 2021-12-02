@@ -37,7 +37,8 @@ public:
     void Render();
 
     // Player
-    
+    MultiSpriteGameObject *MarioPlayer;
+
 private:
     SpriteRenderer *GameRenderer;
 };

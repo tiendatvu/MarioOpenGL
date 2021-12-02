@@ -43,16 +43,22 @@ void GameLevel::Update(glm::vec2 playerPos)
 
 void GameLevel::Draw(SpriteRenderer &renderer)
 {
-    for (int x = 0; x < this->VisibleTilesX + 1; x++)    
+    //for (int x = 0; x < this->VisibleTiles.x + 1; x++)    
+    //{
+    //    for (int y = 0; y < this->VisibleTiles.y + 1; y++)
+    //    {
+    //        int idx = y * this->VisibleTiles.x + x;
+    //        if (!this->Bricks[idx].IsDestroyed)
+    //        {
+    //            this->Bricks[idx].Draw(renderer, this->CameraPos);
+    //        }
+    //    }
+    //}
+
+    for (MultiSpriteGameObject &tile : this->Bricks)
     {
-        for (int y = 0; y < this->VisibleTilesY + 1; y++)
-        {
-            int idx = y * this->VisibleTilesX + x;
-            if (!this->Bricks[idx].IsDestroyed)
-            {
-                this->Bricks[idx].Draw(renderer);
-            }
-        }
+        if (!tile.IsDestroyed)
+            tile.Draw(renderer, this->CameraPos);
     }
 }
 
@@ -78,11 +84,8 @@ void GameLevel::init(std::vector<std::vector<unsigned char>> tileData, unsigned 
     //glm::vec2 unitSize(unitWidth, unitHeight); // size of the texture displayed on the screen
     glm::vec2 unitSize(unitWidth * Util::TILE_SCALE, unitHeight * Util::TILE_SCALE); // size of the texture displayed on the screen
     //glm::vec2 unitSize(unitWidth * levelWidth / width, unitHeight * levelHeight / height); // size of the texture displayed on the screen
-    this->VisibleTilesX = levelWidth / unitSize.x;
-    this->VisibleTilesY = levelHeight / unitSize.y;
-    this->CameraPos = 
-
-    
+    this->VisibleTiles = glm::vec2(levelWidth / unitSize.x, levelHeight / unitSize.y);
+    this->CameraPos = glm::vec2(0, 0);
     // Fix x, iterate y
     // -> store inside the bricks list: y * width + x
     for (unsigned int x = 0; x < width; x++)

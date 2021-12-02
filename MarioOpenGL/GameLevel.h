@@ -15,7 +15,7 @@ public:
     // camera position of the level
     glm::vec2 CameraPos;
     // the number of tiles could be displayed on the screen
-    int VisibleTilesX, VisibleTilesY;
+    glm::vec2 VisibleTiles;
     // level state
     std::vector<MultiSpriteGameObject> Bricks;
     // constructor

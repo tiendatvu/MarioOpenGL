@@ -35,6 +35,9 @@ public:
     void ProcessInput(float dt);
     void Update(float dt);
     void Render();
+
+    // Player
+    
 private:
     SpriteRenderer *GameRenderer;
 };

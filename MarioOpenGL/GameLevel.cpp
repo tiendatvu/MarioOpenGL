@@ -36,17 +36,24 @@ void GameLevel::Load(const char *file, unsigned int levelWidth, unsigned int lev
     }
 }
 
+void GameLevel::Update(glm::vec2 playerPos)
+{
+
+}
+
 void GameLevel::Draw(SpriteRenderer &renderer)
 {
-    for (MultiSpriteGameObject &tile : this->Bricks)
+    for (int x = 0; x < this->VisibleTilesX + 1; x++)    
     {
-        if (!tile.IsDestroyed)
+        for (int y = 0; y < this->VisibleTilesY + 1; y++)
         {
-            tile.Draw(renderer);
+            int idx = y * this->VisibleTilesX + x;
+            if (!this->Bricks[idx].IsDestroyed)
+            {
+                this->Bricks[idx].Draw(renderer);
+            }
         }
     }
-
-    //this->Bricks[0].Draw(renderer);
 }
 
 void GameLevel::init(std::vector<std::vector<unsigned char>> tileData, unsigned int levelWidth, unsigned int levelHeight)
@@ -58,7 +65,6 @@ void GameLevel::init(std::vector<std::vector<unsigned char>> tileData, unsigned 
     float unitWidth = 16.0f;
     float unitHeight = 16.0f;
     glm::vec2 regionScale = glm::vec2(unitWidth / tileSetSprite.Width, unitHeight / tileSetSprite.Height);
-
     // Define brick types
     glm::vec2 tileSize(unitWidth, unitHeight); // tile size in the sprite sheet
     MultiSpriteGameObject tmp;
@@ -69,13 +75,21 @@ void GameLevel::init(std::vector<std::vector<unsigned char>> tileData, unsigned 
     RegionOfInterest* backgroundRegion = new RegionOfInterest(regionScale, glm::vec2(349.0f / tileSetSprite.Width, 33.0f / tileSetSprite.Height), tileSize);
 
     // initialize level tiles based on tileData
-    //glm::vec2 unitSize(unitWidth * Util::TILE_SCALE, unitHeight * Util::TILE_SCALE); // size of the texture displayed on the screen
-    glm::vec2 unitSize(unitWidth, unitHeight); // size of the texture displayed on the screen
-    for (unsigned int y = 0; y < height; y++)
+    //glm::vec2 unitSize(unitWidth, unitHeight); // size of the texture displayed on the screen
+    glm::vec2 unitSize(unitWidth * Util::TILE_SCALE, unitHeight * Util::TILE_SCALE); // size of the texture displayed on the screen
+    //glm::vec2 unitSize(unitWidth * levelWidth / width, unitHeight * levelHeight / height); // size of the texture displayed on the screen
+    this->VisibleTilesX = levelWidth / unitSize.x;
+    this->VisibleTilesY = levelHeight / unitSize.y;
+    this->CameraPos = 
+
+    
+    // Fix x, iterate y
+    // -> store inside the bricks list: y * width + x
+    for (unsigned int x = 0; x < width; x++)
     {
-        for (unsigned int x = 0; x < width; x++)
+        for (unsigned int y = 0; y < height; y++)
         {
-            glm::vec2 pos(unitWidth * x, unitHeight * y);
+            glm::vec2 pos(unitSize.x * x, unitSize.y * y);
             // check block type from level data (2D level array)
             switch (tileData[y][x])
             {

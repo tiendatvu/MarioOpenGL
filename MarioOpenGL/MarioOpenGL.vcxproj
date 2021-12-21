@@ -126,6 +126,9 @@
     <ClCompile Include="Dependencies\OtherLibs\stb_image.cpp" />
     <ClCompile Include="GameLevel.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="ICharacter.cpp" />
+    <ClCompile Include="MarioCharacter.cpp" />
+    <ClCompile Include="MarioCharacterFactory.cpp" />
     <ClCompile Include="MarioGame.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
@@ -142,6 +145,9 @@
     <ClInclude Include="Dependencies\OtherLibs\stb_image.h" />
     <ClInclude Include="GameLevel.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="ICharacter.h" />
+    <ClInclude Include="ICharacterFactory.h" />
+    <ClInclude Include="MarioCharacter.h" />
     <ClInclude Include="MarioGame.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Shader.h" />

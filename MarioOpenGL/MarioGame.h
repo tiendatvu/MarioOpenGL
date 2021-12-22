@@ -6,6 +6,7 @@
 
 #include "SpriteRenderer.h"
 #include "GameLevel.h"
+#include "MarioCharacterFactory.h"
 
 // Represent the current state of the game
 enum GameState {
@@ -38,6 +39,7 @@ public:
 
     // Player
     MultiSpriteGameObject *MarioPlayer;
+    ICharacter *Mario;
 
 private:
     SpriteRenderer *GameRenderer;

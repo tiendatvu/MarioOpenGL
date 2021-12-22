@@ -56,7 +56,7 @@ void MarioGame::Init()
     // load levels
     GameLevel overWorldLv; overWorldLv.Load("MarioOpenGL/Assets/Levels/OverWorld.lvl", this->Width, this->Height);
     this->Levels.push_back(overWorldLv);
-    this->LevelIdx = 0;
+    this->LevelIdx = Util::OverWorld;
 
     // load mario player
     Texture2D playerSprite = ResourceManager::GetTexture("Player");
@@ -64,6 +64,10 @@ void MarioGame::Init()
     RegionOfInterest* smallMarioRegion = new RegionOfInterest(regionScale, glm::vec2(0.0f / playerSprite.Width, 8.0f / playerSprite.Height), glm::vec2(16, 16));
     MarioPlayer = new MultiSpriteGameObject(glm::vec2(0 / 2, this->Height / 2), glm::vec2(48, 48), playerSprite, glm::vec3(1, 1, 1));
     MarioPlayer->Rois.push_back(smallMarioRegion);
+
+    // Create characters by factories
+    MarioCharacterFactory *mcFactory = new MarioCharacterFactory();
+    Mario = mcFactory->CreateCharacter(this->LevelIdx, this->Width, this->Height);
 }
 
 void MarioGame::Update(float dt)

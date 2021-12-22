@@ -148,6 +148,7 @@
     <ClInclude Include="ICharacter.h" />
     <ClInclude Include="ICharacterFactory.h" />
     <ClInclude Include="MarioCharacter.h" />
+    <ClInclude Include="MarioCharacterFactory.h" />
     <ClInclude Include="MarioGame.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Shader.h" />

@@ -6,7 +6,7 @@
 class ICharacterFactory
 {
 public:
-    virtual ICharacter* CreateCharacter() = 0;
+    virtual ICharacter* CreateCharacter(unsigned int levelIndex, unsigned int screenWidth, unsigned int screenHeight) = 0;
 };
 
 #endif // !I_CHARACTER_FACTORY

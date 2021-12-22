@@ -1,7 +1,7 @@
 #include "MarioCharacter.h"
 
 
-MarioCharacter::MarioCharacter()
+MarioCharacter::MarioCharacter(int teamNo, int status, int stage, MultiSpriteGameObject *gameObject)
 {
-
+    this->TeamNo = teamNo;
 }

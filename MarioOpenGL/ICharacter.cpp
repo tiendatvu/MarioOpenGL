@@ -1,21 +1,27 @@
 ﻿#include "ICharacter.h"
 
-void ICharacter::updatePosition()
+
+ICharacter::~ICharacter()
 {
-    // có thể sẽ dùng các hàm gọi walk, jump
+    delete this->GameObject;
 }
 
-void ICharacter::updateStage(int inStage)
+//void ICharacter::UpdatePosition()
+//{
+//    // có thể sẽ dùng các hàm gọi walk, jump
+//}
+//
+//void ICharacter::UpdateStage(int inStage)
+//{
+//    
+//}
+
+void ICharacter::Draw(SpriteRenderer &renderer)
 {
-    
+    this->GameObject->Draw(renderer);
 }
 
-void ICharacter::draw(SpriteRenderer &renderer)
+void ICharacter::Draw(SpriteRenderer &renderer, glm::vec2 &offsetPosition)
 {
-    this->gameObject->Draw(renderer);
-}
-
-void ICharacter::draw(SpriteRenderer &renderer, glm::vec2 &offsetPosition)
-{
-    this->gameObject->Draw(renderer, offsetPosition);
+    this->GameObject->Draw(renderer, offsetPosition);
 }

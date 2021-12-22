@@ -104,6 +104,9 @@
     <ClInclude Include="MarioCharacter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MarioCharacterFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\ModelStage\NES - Super Mario Bros - World 1-1.png">

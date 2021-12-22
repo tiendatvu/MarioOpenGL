@@ -3,11 +3,10 @@
 
 #include "ICharacter.h"
 
-class MarioCharacter : public ICharacter
+class MarioCharacter : ICharacter
 {
 public:
-    MarioCharacter();
-
+    MarioCharacter(int teamNo, int status, int stage, MultiSpriteGameObject *gameObject);
 };
 
 #endif // !MARIO_CHARACTER

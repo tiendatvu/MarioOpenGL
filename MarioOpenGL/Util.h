@@ -26,9 +26,8 @@ public:
     {
         MARIO_STAND = 0,
         MARIO_WALK,
-        MARIO_JUMP,
         MARIO_ABOUT_RUN,
-        MARIO_RUN,
+        MARIO_JUMP,
         MARIO_SIT,
         MARIO_FIRE,
         MARIO_DIE

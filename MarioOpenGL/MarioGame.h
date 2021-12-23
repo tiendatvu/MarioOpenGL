@@ -24,6 +24,7 @@ class MarioGame
 public:
     GameState State;
     bool Keys[1024];
+    bool IsPressed;
     unsigned int Width, Height;
     std::vector<GameLevel> Levels;
     unsigned int           LevelIdx;

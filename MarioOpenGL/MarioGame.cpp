@@ -74,6 +74,7 @@ void MarioGame::Init()
     Mario = mcFactory->CreateCharacter(this->LevelIdx, this->Width, this->Height);
 }
 
+static float timer = 0;
 void MarioGame::Update(float dt)
 {
     //this->Mario->Position += this->MarioPlayer->Velocity;
@@ -90,10 +91,28 @@ void MarioGame::Update(float dt)
     //    this->Levels[this->LevelIdx].CameraPos.x -= this->MarioPlayer->Position.x;
     //    this->MarioPlayer->Position.x = 0;
     //}
+
+    timer += dt;
+    if (timer > 0.25)
+    {
+        timer = 0;
+        this->Mario->SetCurrentVisual();
+    }
 }
 
 void MarioGame::ProcessInput(float dt)
 {
+    if (this->Keys[GLFW_KEY_A])
+    {
+        // left
+        if (!this->IsPressed)
+        {
+            this->Mario->SetCurrentVisual();
+        }
+        
+        this->IsPressed = true;
+    }
+
     //if (this->Keys[GLFW_KEY_A])
     //{
     //    // left

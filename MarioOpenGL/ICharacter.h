@@ -2,6 +2,7 @@
 #define I_CHARACTER_H
 
 #include "GameObject.h"
+#include <map>
 
 class ICharacter
 {
@@ -18,6 +19,7 @@ protected:
     // Quyết định sẽ load file tile nào để render character
     MultiSpriteGameObject* GameObject;
     // Lưu trữ list của region of interest cho các stage và các status khác nhau của character
+    std::map<int, std::vector<RegionOfInterest*>> RoisMap;
 
 
 public:
@@ -29,6 +31,9 @@ public:
     virtual void CreateRegionOfInterestList(int levelIndex) = 0;
     // base on Status and Stage -> Assign the current list of Rois(regions of interest) for the character
     virtual void SetCurrentVisual() = 0;
+
+protected:
+    virtual std::vector<RegionOfInterest*> GetStatusRois(glm::vec2 &offset, glm::vec2 &delta, const glm::vec2 &size, int numRois) = 0;
 };
 
 #endif // !I_CHARACTER_H

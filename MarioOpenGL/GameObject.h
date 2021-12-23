@@ -55,6 +55,7 @@ public:
     bool                           IsSolid;
     bool                           IsDestroyed;
     int                            RoiIdx;
+    int                            RoiDir;
     std::vector<RegionOfInterest*> Rois;
 
     // render state

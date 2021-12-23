@@ -1,5 +1,5 @@
-#ifndef UTIL
-#define UTIL
+﻿#ifndef UTIL_H
+#define UTIL_H
 
 #include <string>
 
@@ -27,14 +27,26 @@ public:
         MARIO_STAND = 0,
         MARIO_WALK,
         MARIO_JUMP,
-        MARIO_RUN
+        MARIO_ABOUT_RUN,
+        MARIO_RUN,
+        MARIO_SIT,
+        MARIO_FIRE,
+        MARIO_DIE
     };
 
-    static enum CharacterStage
+    /// - Nếu gặp phải enemy/đạn thường
+    ///   -> NextStage = Stage - 1 -> check NextStage < 0 then CharacterStatus = die
+    /// - Nếu ăn được nấm thường
+    ///   -> NextStage = Stage + 1 -> check NextStage >= MARIO_FIRE_STAGE then Stage = MARIO_FIRE_STAGE and not change anything
+    ///                                     NextStage < MARIO_FIRE_STAGE  then switch between current stage and next stage
+    /// - Nếu gặp phải enemy/đạn đặc biệt -> CharacterStatus = die
+    /// - Nếu ăn được nấm đặc biệt -> NextStage = MARIO_FIRE_STAGE (switch between current stage and MARIO_FIRE_STAGE)
+    static enum MarioLuigiStage
     {
-        MARIO_SMALL_STAGE = 0,
-        MARIO_MEDIUM_STAGE,
-        MARIO_MEDIUM_SHOOT_STAGE
+        SMALL_STAGE = 0,
+        BIG_STAGE,
+        FIRE_STAGE,
+        GROW_SHRINK_STAGE
     };
 
     static enum GameLevel
@@ -44,9 +56,9 @@ public:
     };
 };
 
-const std::string Util::TEXTURE_PLAYER = "Player";
-const std::string Util::TEXTURE_TILE_SET = "TileSet";
-const std::string Util::TEXTURE_ITEM_AND_BRICK = "ItemAndBrick";
-const std::string Util::SHADER_SPRITE = "sprite";
+//const std::string Util::TEXTURE_PLAYER = "Player";
+//const std::string Util::TEXTURE_TILE_SET = "TileSet";
+//const std::string Util::TEXTURE_ITEM_AND_BRICK = "ItemAndBrick";
+//const std::string Util::SHADER_SPRITE = "sprite";
 
-#endif // !UTIL
+#endif // !UTIL_H

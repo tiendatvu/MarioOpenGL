@@ -67,7 +67,8 @@ void GameLevel::init(std::vector<std::vector<unsigned char>> tileData, unsigned 
     // calculate dimensions
     unsigned int height = tileData.size();
     unsigned int width = tileData[0].size();  // note we can index vector at [0] since this function is only called if height > 0    
-    Texture2D tileSetSprite = ResourceManager::GetTexture(Util::TEXTURE_TILE_SET);
+    //Texture2D tileSetSprite = ResourceManager::GetTexture(Util::TEXTURE_TILE_SET);
+    Texture2D tileSetSprite = ResourceManager::GetTexture("TileSet");
     float unitWidth = 16.0f;
     float unitHeight = 16.0f;
     glm::vec2 regionScale = glm::vec2(unitWidth / tileSetSprite.Width, unitHeight / tileSetSprite.Height);

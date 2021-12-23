@@ -50,9 +50,12 @@ void MarioGame::Init()
     // set render-specific controls
     GameRenderer = new SpriteRenderer(shader);
     // Load textures    
-    ResourceManager::LoadTexture("MarioOpenGL/Assets/Tiles/NES_SuperMarioBros_ItemAndBrickBlocks.png", true, Util::TEXTURE_ITEM_AND_BRICK);
+    /*ResourceManager::LoadTexture("MarioOpenGL/Assets/Tiles/NES_SuperMarioBros_ItemAndBrickBlocks.png", true, Util::TEXTURE_ITEM_AND_BRICK);
     ResourceManager::LoadTexture("MarioOpenGL/Assets/Tiles/NES_SuperMarioBros_Tileset.png", false, Util::TEXTURE_TILE_SET);
-    ResourceManager::LoadTexture("MarioOpenGL/Assets/Tiles/NES_SuperMarioBros_MarioAndLuigi.png", false, Util::TEXTURE_PLAYER);
+    ResourceManager::LoadTexture("MarioOpenGL/Assets/Tiles/NES_SuperMarioBros_MarioAndLuigi.png", false, Util::TEXTURE_PLAYER);*/
+    ResourceManager::LoadTexture("MarioOpenGL/Assets/Tiles/NES_SuperMarioBros_ItemAndBrickBlocks.png", true, "ItemAndBrick");
+    ResourceManager::LoadTexture("MarioOpenGL/Assets/Tiles/NES_SuperMarioBros_Tileset.png", false, "TileSet");
+    ResourceManager::LoadTexture("MarioOpenGL/Assets/Tiles/NES_SuperMarioBros_MarioAndLuigi.png", false, "Player");
 
     // load levels
     GameLevel overWorldLv; overWorldLv.Load("MarioOpenGL/Assets/Levels/OverWorld.lvl", this->Width, this->Height);
@@ -69,8 +72,6 @@ void MarioGame::Init()
     // Create characters by factories
     MarioCharacterFactory *mcFactory = new MarioCharacterFactory();
     Mario = mcFactory->CreateCharacter(this->LevelIdx, this->Width, this->Height);
-
-    int a = 1;
 }
 
 void MarioGame::Update(float dt)

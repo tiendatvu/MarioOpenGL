@@ -4,7 +4,7 @@
 
 ICharacter* MarioCharacterFactory::CreateCharacter(unsigned int levelIndex, unsigned int screenWidth, unsigned int screenHeight)
 {
-    Texture2D playerSprite = ResourceManager::GetTexture("Player");
+    Texture2D playerSprite = ResourceManager::GetTexture(Util::TEXTURE_PLAYER);
     glm::vec2 regionScale;
     switch (levelIndex)
     {

@@ -38,7 +38,7 @@ public:
     void Render();
 
     // Player
-    MultiSpriteGameObject *MarioPlayer;
+    //MultiSpriteGameObject *MarioPlayer;
     ICharacter *Mario;
 
 private:

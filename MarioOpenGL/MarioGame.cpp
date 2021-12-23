@@ -13,7 +13,8 @@ MarioGame::MarioGame(unsigned int width, unsigned int height)
 MarioGame::~MarioGame()
 {
     delete GameRenderer;
-    delete MarioPlayer;
+    //delete MarioPlayer;
+    delete Mario;
 }
 
 void MarioGame::Init()
@@ -49,71 +50,73 @@ void MarioGame::Init()
     // set render-specific controls
     GameRenderer = new SpriteRenderer(shader);
     // Load textures    
-    ResourceManager::LoadTexture("MarioOpenGL/Assets/Tiles/NES_SuperMarioBros_ItemAndBrickBlocks.png", true, "ItemAndBrick");
-    ResourceManager::LoadTexture("MarioOpenGL/Assets/Tiles/NES_SuperMarioBros_Tileset.png", false, "Tileset");
-    ResourceManager::LoadTexture("MarioOpenGL/Assets/Tiles/NES_SuperMarioBros_MarioAndLuigi.png", false, "Player");
+    ResourceManager::LoadTexture("MarioOpenGL/Assets/Tiles/NES_SuperMarioBros_ItemAndBrickBlocks.png", true, Util::TEXTURE_ITEM_AND_BRICK);
+    ResourceManager::LoadTexture("MarioOpenGL/Assets/Tiles/NES_SuperMarioBros_Tileset.png", false, Util::TEXTURE_TILE_SET);
+    ResourceManager::LoadTexture("MarioOpenGL/Assets/Tiles/NES_SuperMarioBros_MarioAndLuigi.png", false, Util::TEXTURE_PLAYER);
 
     // load levels
     GameLevel overWorldLv; overWorldLv.Load("MarioOpenGL/Assets/Levels/OverWorld.lvl", this->Width, this->Height);
-    this->Levels.push_back(overWorldLv);
+    this->Levels.insert(this->Levels.begin() + Util::OverWorld, overWorldLv);
     this->LevelIdx = Util::OverWorld;
 
     // load mario player
-    Texture2D playerSprite = ResourceManager::GetTexture("Player");
-    glm::vec2 regionScale = glm::vec2(16.0f / playerSprite.Width, 16.0f / playerSprite.Height);
-    RegionOfInterest* smallMarioRegion = new RegionOfInterest(regionScale, glm::vec2(0.0f / playerSprite.Width, 8.0f / playerSprite.Height), glm::vec2(16, 16));
-    MarioPlayer = new MultiSpriteGameObject(glm::vec2(0 / 2, this->Height / 2), glm::vec2(48, 48), playerSprite, glm::vec3(1, 1, 1));
-    MarioPlayer->Rois.push_back(smallMarioRegion);
+    //Texture2D playerSprite = ResourceManager::GetTexture(Util::TEXTURE_PLAYER);
+    //glm::vec2 regionScale = glm::vec2(16.0f / playerSprite.Width, 16.0f / playerSprite.Height);
+    //RegionOfInterest* smallMarioRegion = new RegionOfInterest(regionScale, glm::vec2(0.0f / playerSprite.Width, 8.0f / playerSprite.Height), glm::vec2(16, 16));
+    //MarioPlayer = new MultiSpriteGameObject(glm::vec2(0 / 2, this->Height / 2), glm::vec2(48, 48), playerSprite, glm::vec3(1, 1, 1));
+    //MarioPlayer->Rois.push_back(smallMarioRegion);
 
     // Create characters by factories
     MarioCharacterFactory *mcFactory = new MarioCharacterFactory();
     Mario = mcFactory->CreateCharacter(this->LevelIdx, this->Width, this->Height);
+
+    int a = 1;
 }
 
 void MarioGame::Update(float dt)
 {
-    this->MarioPlayer->Position += this->MarioPlayer->Velocity;
+    //this->Mario->Position += this->MarioPlayer->Velocity;
 
-    float halfWidth = this->Width / 2.0f;
-    if (this->MarioPlayer->Position.x >= halfWidth)
-    {
-        this->Levels[this->LevelIdx].CameraPos.x += halfWidth - this->MarioPlayer->Position.x;
-        this->MarioPlayer->Position.x = halfWidth;
-    }
-    //else if (this->MarioPlayer->Position.x < 0 && this->Levels[this->LevelIdx].CameraPos.x > 0)
-    else if (this->MarioPlayer->Position.x < 0)
-    {
-        this->Levels[this->LevelIdx].CameraPos.x -= this->MarioPlayer->Position.x;
-        this->MarioPlayer->Position.x = 0;
-    }
+    //float halfWidth = this->Width / 2.0f;
+    //if (this->MarioPlayer->Position.x >= halfWidth)
+    //{
+    //    this->Levels[this->LevelIdx].CameraPos.x += halfWidth - this->MarioPlayer->Position.x;
+    //    this->MarioPlayer->Position.x = halfWidth;
+    //}
+    ////else if (this->MarioPlayer->Position.x < 0 && this->Levels[this->LevelIdx].CameraPos.x > 0)
+    //else if (this->MarioPlayer->Position.x < 0)
+    //{
+    //    this->Levels[this->LevelIdx].CameraPos.x -= this->MarioPlayer->Position.x;
+    //    this->MarioPlayer->Position.x = 0;
+    //}
 }
 
 void MarioGame::ProcessInput(float dt)
 {
-    if (this->Keys[GLFW_KEY_A])
-    {
-        // left
-        this->MarioPlayer->Velocity = glm::vec2(-Util::MARIO_NORMAL_SPEED, 0);
-    }
-    else if (this->Keys[GLFW_KEY_D])
-    {
-        // right
-        this->MarioPlayer->Velocity = glm::vec2(Util::MARIO_NORMAL_SPEED, 0);
-    }
-    else if (this->Keys[GLFW_KEY_SPACE])
-    {
-        // jump
+    //if (this->Keys[GLFW_KEY_A])
+    //{
+    //    // left
+    //    this->MarioPlayer->Velocity = glm::vec2(-Util::MARIO_NORMAL_SPEED, 0);
+    //}
+    //else if (this->Keys[GLFW_KEY_D])
+    //{
+    //    // right
+    //    this->MarioPlayer->Velocity = glm::vec2(Util::MARIO_NORMAL_SPEED, 0);
+    //}
+    //else if (this->Keys[GLFW_KEY_SPACE])
+    //{
+    //    // jump
 
-    }
-    else if (this->Keys[GLFW_KEY_ENTER] || this->Keys[GLFW_KEY_0])
-    {
-        // fire
+    //}
+    //else if (this->Keys[GLFW_KEY_ENTER] || this->Keys[GLFW_KEY_0])
+    //{
+    //    // fire
 
-    }
-    else
-    {
-        this->MarioPlayer->Velocity = glm::vec2(0, 0);
-    }
+    //}
+    //else
+    //{
+    //    this->MarioPlayer->Velocity = glm::vec2(0, 0);
+    //}
 }
 
 void MarioGame::Render()
@@ -122,5 +125,5 @@ void MarioGame::Render()
     this->Levels[this->LevelIdx].Draw(*this->GameRenderer);
 
     // draw player
-    this->MarioPlayer->Draw(*this->GameRenderer);
+    this->Mario->Draw(*this->GameRenderer);
 }

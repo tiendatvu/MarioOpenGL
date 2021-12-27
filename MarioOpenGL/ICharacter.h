@@ -6,7 +6,7 @@
 
 class ICharacter
 {
-protected:
+public:
     int TeamNo;
     // đứng, ngồi, chạy, đi, bắn, nhảy...
     int Status;

@@ -15,6 +15,7 @@ MarioGame::~MarioGame()
     delete GameRenderer;
     //delete MarioPlayer;
     delete Mario;
+    delete WalkingCommand;
 }
 
 void MarioGame::Init()
@@ -72,6 +73,9 @@ void MarioGame::Init()
     // Create characters by factories
     MarioCharacterFactory *mcFactory = new MarioCharacterFactory();
     Mario = mcFactory->CreateCharacter(this->LevelIdx, this->Width, this->Height);
+    
+    // Init Commands
+    this->WalkingCommand = new WalkCommand();
 }
 
 static float timer = 0;
@@ -105,12 +109,21 @@ void MarioGame::ProcessInput(float dt)
     if (this->Keys[GLFW_KEY_A])
     {
         // left
-        if (!this->IsPressed)
+        /*if (!this->IsPressed)
         {
             this->Mario->SetCurrentVisual();
         }
         
-        this->IsPressed = true;
+        this->IsPressed = true;*/
+        Mario->GameObject->Velocity.x = -abs(Mario->GameObject->Velocity.x);
+        this->WalkingCommand->Execute(Mario);
+    }
+
+    if (this->Keys[GLFW_KEY_D])
+    {
+        // right
+        Mario->GameObject->Velocity.x = abs(Mario->GameObject->Velocity.x);
+        this->WalkingCommand->Execute(Mario);
     }
 
     //if (this->Keys[GLFW_KEY_A])

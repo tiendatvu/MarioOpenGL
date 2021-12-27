@@ -137,8 +137,10 @@
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Util.h" />
+    <ClCompile Include="WalkCommand.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ICommand.h" />
     <ClInclude Include="Dependencies\glad\include\glad\glad.h" />
     <ClInclude Include="Dependencies\glad\include\KHR\khrplatform.h" />
     <ClInclude Include="Dependencies\GLFW\include\GLFW\glfw3.h" />
@@ -154,6 +156,7 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="WalkCommand.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\ModelStage\NES - Super Mario Bros - World 1-1.png" />

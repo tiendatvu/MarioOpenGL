@@ -10,6 +10,6 @@ uniform vec2 offset;
 
 void main()
 {
-    color = vec4(spriteColor, 1.0) * texture(image, vec2(TexCoords.x * roi.x, TexCoords.y * roi.y) + offset);
-    //color = vec4(spriteColor, 1.0) * texture(image, TexCoords * roi + offset);
+    //color = vec4(spriteColor, 1.0) * texture(image, vec2(TexCoords.x * roi.x, TexCoords.y * roi.y) + offset);
+    color = vec4(spriteColor, 1.0) * texture(image, TexCoords * roi + offset);
 }  

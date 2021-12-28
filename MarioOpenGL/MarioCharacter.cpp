@@ -1,12 +1,20 @@
 #include "MarioCharacter.h"
 #include "Util.h"
+#include "ResourceManager.h"
 
-MarioCharacter::MarioCharacter(int teamNo, int status, int stage, MultiSpriteGameObject *gameObject)
+MarioCharacter::MarioCharacter(int teamNo, int status, int stage, glm::vec2 pos, glm::vec2 size, std::string spriteName, glm::vec3 color, glm::vec2 velocity)
 {
+    this->RoiIdx = 0;
+    this->RoiIteratorDirection = 1;
+    this->Position = pos;
+    this->Size = size;
+    this->Sprite = ResourceManager::GetTexture(spriteName);
+    this->Color = color;
+    this->Velocity = velocity;
     this->TeamNo = teamNo;
     this->Status = status;
     this->Stage = stage;
-    this->GameObject = gameObject;
+    this->IsRightToLeft = false;
 }
 
 void AssignInitProperties(int stage, int status, glm::vec2 &offset, glm::vec2 &delta, glm::vec2 &size, int &numRois);
@@ -25,7 +33,7 @@ void MarioCharacter::CreateRegionOfInterestList(int levelIndex)
         this->RoisMap[status] = tmpRois;
     }
 
-    this->GameObject->Rois = this->RoisMap[this->Status];
+    this->Rois = this->RoisMap[this->Status];
 }
 
 void AssignInitProperties(int stage, int status, glm::vec2 &offset, glm::vec2 &delta, glm::vec2 &size, int &numRois)
@@ -74,10 +82,10 @@ void AssignInitProperties(int stage, int status, glm::vec2 &offset, glm::vec2 &d
 std::vector<RegionOfInterest*> MarioCharacter::GetStatusRois(glm::vec2 &offset, glm::vec2 &delta, const glm::vec2 &size, int numRois)
 {
     std::vector<RegionOfInterest*> list;
-    glm::vec2 regionScale = glm::vec2(size.x / this->GameObject->Sprite.Width, size.y / this->GameObject->Sprite.Height);
+    glm::vec2 regionScale = glm::vec2(size.x / this->Sprite.Width, size.y / this->Sprite.Height);
     for (int i = 0; i < numRois; i++)
     {
-        glm::vec2 tmpOffset = glm::vec2(offset.x / this->GameObject->Sprite.Width, offset.y / this->GameObject->Sprite.Height);
+        glm::vec2 tmpOffset = glm::vec2(offset.x / this->Sprite.Width, offset.y / this->Sprite.Height);
         RegionOfInterest* roi = new RegionOfInterest(regionScale, tmpOffset, size);
         list.push_back(roi);
         offset.x += size.x + delta.x;
@@ -88,14 +96,14 @@ std::vector<RegionOfInterest*> MarioCharacter::GetStatusRois(glm::vec2 &offset, 
 
 void MarioCharacter::SetCurrentVisual()
 {
-    int numRois = this->GameObject->Rois.size() - 1;
+    int numRois = this->Rois.size() - 1;
     if (numRois == 0)
     {
         return;
     }
 
-    this->GameObject->RoiDir = (this->GameObject->RoiIdx == numRois && this->GameObject->RoiDir > 0) ||
-                               (this->GameObject->RoiIdx == 0 && this->GameObject->RoiDir < 0) ?
-                               -this->GameObject->RoiDir : this->GameObject->RoiDir;
-    this->GameObject->RoiIdx += this->GameObject->RoiDir;
+    this->RoiIteratorDirection = (this->RoiIdx == numRois && this->RoiIteratorDirection > 0) ||
+                                 (this->RoiIdx == 0 && this->RoiIteratorDirection < 0) ?
+                                 -this->RoiIteratorDirection : this->RoiIteratorDirection;
+    this->RoiIdx += this->RoiIteratorDirection;
 }

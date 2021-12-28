@@ -2,5 +2,5 @@
 
 void WalkCommand::Execute(ICharacter *character)
 {
-    character->GameObject->Position.x += character->GameObject->Velocity.x;
+    character->Position.x += character->IsRightToLeft ? -character->Velocity.x : character->Velocity.x;
 }

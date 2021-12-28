@@ -62,14 +62,7 @@ void MarioGame::Init()
     GameLevel overWorldLv; overWorldLv.Load("MarioOpenGL/Assets/Levels/OverWorld.lvl", this->Width, this->Height);
     this->Levels.insert(this->Levels.begin() + Util::OverWorld, overWorldLv);
     this->LevelIdx = Util::OverWorld;
-
-    // load mario player
-    //Texture2D playerSprite = ResourceManager::GetTexture(Util::TEXTURE_PLAYER);
-    //glm::vec2 regionScale = glm::vec2(16.0f / playerSprite.Width, 16.0f / playerSprite.Height);
-    //RegionOfInterest* smallMarioRegion = new RegionOfInterest(regionScale, glm::vec2(0.0f / playerSprite.Width, 8.0f / playerSprite.Height), glm::vec2(16, 16));
-    //MarioPlayer = new MultiSpriteGameObject(glm::vec2(0 / 2, this->Height / 2), glm::vec2(48, 48), playerSprite, glm::vec3(1, 1, 1));
-    //MarioPlayer->Rois.push_back(smallMarioRegion);
-
+    
     // Create characters by factories
     MarioCharacterFactory *mcFactory = new MarioCharacterFactory();
     Mario = mcFactory->CreateCharacter(this->LevelIdx, this->Width, this->Height);
@@ -109,47 +102,52 @@ void MarioGame::ProcessInput(float dt)
     if (this->Keys[GLFW_KEY_A])
     {
         // left
-        /*if (!this->IsPressed)
+        if (!this->IsPressed)
         {
-            this->Mario->SetCurrentVisual();
+            Mario->RoiIdx = 0;
+            this->IsPressed = true;
         }
-        
-        this->IsPressed = true;*/
-        Mario->GameObject->Velocity.x = -abs(Mario->GameObject->Velocity.x);
+        Mario->IsRightToLeft = true;
+        Mario->UpdateRoisByStatus(Util::MARIO_WALK);
         this->WalkingCommand->Execute(Mario);
     }
-
-    if (this->Keys[GLFW_KEY_D])
+    else if (this->Keys[GLFW_KEY_D])
     {
         // right
-        Mario->GameObject->Velocity.x = abs(Mario->GameObject->Velocity.x);
+        if (!this->IsPressed)
+        {
+            Mario->RoiIdx = 0;
+            this->IsPressed = true;
+        }
+        Mario->IsRightToLeft = false;
+        Mario->UpdateRoisByStatus(Util::MARIO_WALK);
         this->WalkingCommand->Execute(Mario);
     }
+    else if (this->Keys[GLFW_KEY_SPACE])
+    {
+        // jump
+        if (!this->IsPressed)
+        {
+            Mario->RoiIdx = 0;
+            this->IsPressed = true;
+        }
+        Mario->UpdateRoisByStatus(Util::MARIO_JUMP);
+    }
+    else if (this->Keys[GLFW_KEY_ENTER] || this->Keys[GLFW_KEY_0])
+    {
+        // fire
+        if (!this->IsPressed)
+        {
+            Mario->RoiIdx = 0;
+            this->IsPressed = true;
+        }
 
-    //if (this->Keys[GLFW_KEY_A])
-    //{
-    //    // left
-    //    this->MarioPlayer->Velocity = glm::vec2(-Util::MARIO_NORMAL_SPEED, 0);
-    //}
-    //else if (this->Keys[GLFW_KEY_D])
-    //{
-    //    // right
-    //    this->MarioPlayer->Velocity = glm::vec2(Util::MARIO_NORMAL_SPEED, 0);
-    //}
-    //else if (this->Keys[GLFW_KEY_SPACE])
-    //{
-    //    // jump
-
-    //}
-    //else if (this->Keys[GLFW_KEY_ENTER] || this->Keys[GLFW_KEY_0])
-    //{
-    //    // fire
-
-    //}
-    //else
-    //{
-    //    this->MarioPlayer->Velocity = glm::vec2(0, 0);
-    //}
+    }
+    else
+    {
+        Mario->RoiIdx = 0;
+        Mario->UpdateRoisByStatus(Util::MARIO_STAND);
+    }
 }
 
 void MarioGame::Render()

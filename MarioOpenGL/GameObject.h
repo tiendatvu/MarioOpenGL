@@ -54,8 +54,9 @@ public:
     float                          Rotation;
     bool                           IsSolid;
     bool                           IsDestroyed;
+    bool                           IsRightToLeft;
     int                            RoiIdx;
-    int                            RoiDir;
+    int                            RoiIteratorDirection;
     std::vector<RegionOfInterest*> Rois;
 
     // render state

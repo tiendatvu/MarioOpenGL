@@ -3,25 +3,10 @@
 
 ICharacter::~ICharacter()
 {
-    delete this->GameObject;
 }
 
-//void ICharacter::UpdatePosition()
-//{
-//    // có thể sẽ dùng các hàm gọi walk, jump
-//}
-//
-//void ICharacter::UpdateStage(int inStage)
-//{
-//    
-//}
-
-void ICharacter::Draw(SpriteRenderer &renderer)
+void ICharacter::UpdateRoisByStatus(int status)
 {
-    this->GameObject->Draw(renderer);
-}
-
-void ICharacter::Draw(SpriteRenderer &renderer, glm::vec2 &offsetPosition)
-{
-    this->GameObject->Draw(renderer, offsetPosition);
+    this->Status = status;
+    this->Rois = this->RoisMap[this->Status];
 }

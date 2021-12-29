@@ -12,9 +12,9 @@ public:
     int Status;
     // * ví dụ mario: 
     // stage1: small size
-    // stage2 : medium size, bigger than small
-    // stage3 : medium size, can shoot
-    // stage4 : special state : walk fast(at run speed), last a few seconds, after special effect -> return to stage3
+    // stage2: medium size, bigger than small
+    // stage3: medium size, can shoot
+    // stage4: special state : walk fast(at run speed), last a few seconds, after special effect -> return to stage3
     int Stage;
     // Lưu trữ list của region of interest cho các stage và các status khác nhau của character
     std::map<int, std::vector<RegionOfInterest*>> RoisMap;

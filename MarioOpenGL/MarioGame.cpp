@@ -106,10 +106,13 @@ void MarioGame::ProcessInput(float dt)
     {
         this->JumpingCommand->Execute(Mario);
 
+#if DEBUG
         if (this->Keys[GLFW_KEY_Z])
         {
             Mario->UpdateRoisByStatus(Util::MARIO_STAND);
         }
+#endif
+
         return;
     }
 

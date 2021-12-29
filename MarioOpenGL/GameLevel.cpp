@@ -1,4 +1,4 @@
-#include "GameLevel.h"
+﻿#include "GameLevel.h"
 #include "Util.h"
 
 #include <fstream>
@@ -60,6 +60,31 @@ void GameLevel::Draw(SpriteRenderer &renderer)
         if (!tile.IsDestroyed)
             tile.Draw(renderer, this->CameraPos);
     }
+}
+
+// Trong trường hơp này, chỉ reinit lại thành background.
+// TODO: init lại với các trường hợp background khác nhau
+void GameLevel::ReInitTile(int index)
+{
+    // TODO: làm lại đoạn code này
+    Texture2D tileSetSprite = ResourceManager::GetTexture("TileSet");
+    float unitWidth = 16.0f;
+    float unitHeight = 16.0f;
+    glm::vec2 regionScale = glm::vec2(unitWidth / tileSetSprite.Width, unitHeight / tileSetSprite.Height);
+    glm::vec2 tileSize(unitWidth, unitHeight); // tile size in the sprite sheet
+    RegionOfInterest* backgroundRegion = new RegionOfInterest(regionScale, glm::vec2(349.0f / tileSetSprite.Width, 33.0f / tileSetSprite.Height), tileSize);
+
+    // 
+    int roiSize = this->Bricks[index].Rois.size();
+    for (size_t i = 0; i < roiSize; i++)
+    {
+        delete this->Bricks[index].Rois[i];
+    }
+    this->Bricks[index].Rois.clear();
+    this->Bricks[index].Rois.shrink_to_fit();
+
+
+    this->Bricks[index].Rois.push_back(backgroundRegion);
 }
 
 void GameLevel::init(std::vector<std::vector<unsigned char>> tileData, unsigned int levelWidth, unsigned int levelHeight)

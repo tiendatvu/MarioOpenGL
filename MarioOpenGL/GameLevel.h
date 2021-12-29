@@ -26,6 +26,8 @@ public:
     void Draw(SpriteRenderer &renderer);
     // update level
     void Update(glm::vec2 playerPos);
+
+    void ReInitTile(int index);
 private:
     // initialize level from tile data
     void init(std::vector<std::vector<unsigned char>> tileData, unsigned int levelWidth, unsigned int levelHeight);

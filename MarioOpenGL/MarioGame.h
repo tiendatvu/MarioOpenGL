@@ -8,6 +8,7 @@
 #include "GameLevel.h"
 #include "MarioCharacterFactory.h"
 #include "WalkCommand.h"
+#include "JumpCommand.h"
 
 // Represent the current state of the game
 enum GameState {
@@ -45,6 +46,7 @@ public:
 
     // Commands
     ICommand *WalkingCommand;
+    ICommand *JumpingCommand;
 
 private:
     SpriteRenderer *GameRenderer;

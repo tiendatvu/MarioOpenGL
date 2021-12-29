@@ -16,6 +16,7 @@ MarioGame::~MarioGame()
     //delete MarioPlayer;
     delete Mario;
     delete WalkingCommand;
+    delete JumpingCommand;
 }
 
 void MarioGame::Init()
@@ -62,13 +63,14 @@ void MarioGame::Init()
     GameLevel overWorldLv; overWorldLv.Load("MarioOpenGL/Assets/Levels/OverWorld.lvl", this->Width, this->Height);
     this->Levels.insert(this->Levels.begin() + Util::OverWorld, overWorldLv);
     this->LevelIdx = Util::OverWorld;
-    
+
     // Create characters by factories
     MarioCharacterFactory *mcFactory = new MarioCharacterFactory();
     Mario = mcFactory->CreateCharacter(this->LevelIdx, this->Width, this->Height);
-    
+
     // Init Commands
     this->WalkingCommand = new WalkCommand();
+    this->JumpingCommand = new JumpCommand();
 }
 
 static float timer = 0;
@@ -99,16 +101,27 @@ void MarioGame::Update(float dt)
 
 void MarioGame::ProcessInput(float dt)
 {
+    // Nếu status của Mario là MARIO_JUMP -> not doing anything
+    if (Mario->Status == Util::MARIO_JUMP)
+    {
+        this->JumpingCommand->Execute(Mario);
+
+        if (this->Keys[GLFW_KEY_Z])
+        {
+            Mario->UpdateRoisByStatus(Util::MARIO_STAND);
+        }
+        return;
+    }
+
     if (this->Keys[GLFW_KEY_A])
     {
         // left
         if (!this->IsPressed)
         {
-            Mario->RoiIdx = 0;
             this->IsPressed = true;
+            Mario->IsRightToLeft = true;
+            Mario->UpdateRoisByStatus(Util::MARIO_WALK);
         }
-        Mario->IsRightToLeft = true;
-        Mario->UpdateRoisByStatus(Util::MARIO_WALK);
         this->WalkingCommand->Execute(Mario);
     }
     else if (this->Keys[GLFW_KEY_D])
@@ -116,11 +129,10 @@ void MarioGame::ProcessInput(float dt)
         // right
         if (!this->IsPressed)
         {
-            Mario->RoiIdx = 0;
             this->IsPressed = true;
+            Mario->IsRightToLeft = false;
+            Mario->UpdateRoisByStatus(Util::MARIO_WALK);
         }
-        Mario->IsRightToLeft = false;
-        Mario->UpdateRoisByStatus(Util::MARIO_WALK);
         this->WalkingCommand->Execute(Mario);
     }
     else if (this->Keys[GLFW_KEY_SPACE])
@@ -128,24 +140,22 @@ void MarioGame::ProcessInput(float dt)
         // jump
         if (!this->IsPressed)
         {
-            Mario->RoiIdx = 0;
+            Mario->UpdateRoisByStatus(Util::MARIO_JUMP);
             this->IsPressed = true;
         }
-        Mario->UpdateRoisByStatus(Util::MARIO_JUMP);
+        this->JumpingCommand->Execute(Mario);
     }
     else if (this->Keys[GLFW_KEY_ENTER] || this->Keys[GLFW_KEY_0])
     {
         // fire
         if (!this->IsPressed)
         {
-            Mario->RoiIdx = 0;
+            Mario->UpdateRoisByStatus(Util::MARIO_FIRE);
             this->IsPressed = true;
         }
-
     }
     else
     {
-        Mario->RoiIdx = 0;
         Mario->UpdateRoisByStatus(Util::MARIO_STAND);
     }
 }

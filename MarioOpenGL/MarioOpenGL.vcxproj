@@ -127,6 +127,7 @@
     <ClCompile Include="GameLevel.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="ICharacter.cpp" />
+    <ClCompile Include="JumpCommand.cpp" />
     <ClCompile Include="MarioCharacter.cpp" />
     <ClCompile Include="MarioCharacterFactory.cpp" />
     <ClCompile Include="MarioGame.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ICharacter.h" />
     <ClInclude Include="ICharacterFactory.h" />
+    <ClInclude Include="JumpCommand.h" />
     <ClInclude Include="MarioCharacter.h" />
     <ClInclude Include="MarioCharacterFactory.h" />
     <ClInclude Include="MarioGame.h" />

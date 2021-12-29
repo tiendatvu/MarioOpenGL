@@ -1,4 +1,5 @@
 #include "WalkCommand.h"
+#include "Util.h"
 
 void WalkCommand::Execute(ICharacter *character)
 {

@@ -13,10 +13,10 @@ MarioGame::MarioGame(unsigned int width, unsigned int height)
 MarioGame::~MarioGame()
 {
     delete GameRenderer;
-    //delete MarioPlayer;
     delete Mario;
     delete WalkingCommand;
     delete JumpingCommand;
+    delete GamePhysicsEngine;
 }
 
 void MarioGame::Init()
@@ -71,6 +71,10 @@ void MarioGame::Init()
     // Init Commands
     this->WalkingCommand = new WalkCommand();
     this->JumpingCommand = new JumpCommand();
+    
+
+    // Init Engines
+    this->GamePhysicsEngine = new PhysicsEngine();
 }
 
 static float timer = 0;
@@ -95,6 +99,11 @@ void MarioGame::Update(float dt)
     if (timer > 0.25)
     {
         timer = 0;
+
+        // Handles collisions
+        this->GamePhysicsEngine->UpdateCharacter(this->Mario, this->Levels[this->LevelIdx]);
+
+        // Update current visual of the Mario/Luigi
         this->Mario->SetCurrentVisual();
     }
 }

@@ -9,8 +9,8 @@ public:
     static constexpr unsigned int TILE_SCALE = 3;
     static constexpr unsigned int CAMERA_WIDTH = 256;
     static constexpr unsigned int CAMERA_HEIGHT = 240;
-    static constexpr float MARIO_WALK_SPEED = 0.05;
-    static constexpr float MARIO_RUN_SPEED = 15;
+    static constexpr float MARIO_WALK_SPEED = 0.05f;
+    static constexpr float MARIO_RUN_SPEED = 15.0f;
 
     static const std::string TEXTURE_PLAYER;
     static const std::string TEXTURE_TILE_SET;
@@ -34,13 +34,13 @@ public:
         MARIO_DIE
     };
 
-    /// - Nếu gặp phải enemy/đạn thường
-    ///   -> NextStage = Stage - 1 -> check NextStage < 0 then CharacterStatus = die
-    /// - Nếu ăn được nấm thường
-    ///   -> NextStage = Stage + 1 -> check NextStage >= MARIO_FIRE_STAGE then Stage = MARIO_FIRE_STAGE and not change anything
-    ///                                     NextStage < MARIO_FIRE_STAGE  then switch between current stage and next stage
-    /// - Nếu gặp phải enemy/đạn đặc biệt -> CharacterStatus = die
-    /// - Nếu ăn được nấm đặc biệt -> NextStage = MARIO_FIRE_STAGE (switch between current stage and MARIO_FIRE_STAGE)
+    // - Nếu gặp phải enemy/đạn thường
+    //   -> NextStage = Stage - 1 -> check NextStage < 0 then CharacterStatus = die
+    // - Nếu ăn được nấm thường
+    //   -> NextStage = Stage + 1 -> check NextStage >= MARIO_FIRE_STAGE then Stage = MARIO_FIRE_STAGE and not change anything
+    //                                     NextStage < MARIO_FIRE_STAGE  then switch between current stage and next stage
+    // - Nếu gặp phải enemy/đạn đặc biệt -> CharacterStatus = die
+    // - Nếu ăn được nấm đặc biệt -> NextStage = MARIO_FIRE_STAGE (switch between current stage and MARIO_FIRE_STAGE)
     static enum MarioLuigiStage
     {
         SMALL_STAGE = 0,

@@ -127,10 +127,12 @@
     <ClCompile Include="GameLevel.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="ICharacter.cpp" />
+    <ClCompile Include="IObservableSubject.cpp" />
     <ClCompile Include="JumpCommand.cpp" />
     <ClCompile Include="MarioCharacter.cpp" />
     <ClCompile Include="MarioCharacterFactory.cpp" />
     <ClCompile Include="MarioGame.cpp" />
+    <ClCompile Include="PhysicsEngine.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -150,10 +152,12 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ICharacter.h" />
     <ClInclude Include="ICharacterFactory.h" />
+    <ClInclude Include="IObservableSubject.h" />
     <ClInclude Include="JumpCommand.h" />
     <ClInclude Include="MarioCharacter.h" />
     <ClInclude Include="MarioCharacterFactory.h" />
     <ClInclude Include="MarioGame.h" />
+    <ClInclude Include="PhysicsEngine.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SpriteRenderer.h" />

@@ -9,6 +9,7 @@
 #include "MarioCharacterFactory.h"
 #include "WalkCommand.h"
 #include "JumpCommand.h"
+#include "PhysicsEngine.h"
 
 // Represent the current state of the game
 enum GameState {
@@ -41,12 +42,14 @@ public:
     void Render();
 
     // Player
-    //MultiSpriteGameObject *MarioPlayer;
     ICharacter *Mario;
 
     // Commands
     ICommand *WalkingCommand;
     ICommand *JumpingCommand;
+
+    // Physics engine
+    PhysicsEngine *GamePhysicsEngine;
 
 private:
     SpriteRenderer *GameRenderer;

@@ -1,5 +1,19 @@
 #include "GameObject.h"
 
+MultiSpriteGameObject::~MultiSpriteGameObject()
+{
+    /*for (int i = 0; i < this->Rois.size(); i++)
+    {
+        if (this->Rois[i] != nullptr)
+        {
+            delete this->Rois[i];
+            this->Rois[i] = nullptr;
+        }
+    }*/
+    this->Rois.clear();
+    this->Rois.shrink_to_fit();
+}
+
 MultiSpriteGameObject::MultiSpriteGameObject()
     : Position(0.0f, 0.0f), Size(1.0f, 1.0f), Velocity(0.0f), Color(1.0f), Rotation(0.0f), Sprite(), IsSolid(false), IsDestroyed(false), IsRightToLeft(false)
 {

@@ -28,6 +28,7 @@ public:
     // base on Status and Stage -> Assign the current list of Rois(regions of interest) for the character
     virtual void SetCurrentVisual() = 0;
     virtual void UpdateRoisByStatus(int status);
+    glm::vec2 GetCurrentTilePostion(glm::vec2 tileUnitSize);
 
 protected:
     virtual std::vector<RegionOfInterest*> GetStatusRois(glm::vec2 &offset, glm::vec2 &delta, const glm::vec2 &size, int numRois) = 0;

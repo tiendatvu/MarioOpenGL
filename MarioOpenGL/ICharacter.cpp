@@ -17,3 +17,9 @@ void ICharacter::UpdateRoisByStatus(int status)
     this->Status = status;
     this->Rois = this->RoisMap[this->Status];
 }
+
+glm::vec2 ICharacter::GetCurrentTilePostion(glm::vec2 tileUnitSize)
+{
+    glm::vec2 tmp = this->Position / tileUnitSize;
+    return tmp;
+}

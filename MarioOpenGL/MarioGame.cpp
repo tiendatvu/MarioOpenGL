@@ -77,35 +77,54 @@ void MarioGame::Init()
     this->GamePhysicsEngine = new PhysicsEngine();
 }
 
-static float timer = 0;
+static float timer = 0.0f;
 void MarioGame::Update(float dt)
 {
-    //this->Mario->Position += this->MarioPlayer->Velocity;
-
-    //float halfWidth = this->Width / 2.0f;
-    //if (this->MarioPlayer->Position.x >= halfWidth)
-    //{
-    //    this->Levels[this->LevelIdx].CameraPos.x += halfWidth - this->MarioPlayer->Position.x;
-    //    this->MarioPlayer->Position.x = halfWidth;
-    //}
-    ////else if (this->MarioPlayer->Position.x < 0 && this->Levels[this->LevelIdx].CameraPos.x > 0)
-    //else if (this->MarioPlayer->Position.x < 0)
-    //{
-    //    this->Levels[this->LevelIdx].CameraPos.x -= this->MarioPlayer->Position.x;
-    //    this->MarioPlayer->Position.x = 0;
-    //}
+    // update camera position with Mario movement
+    float deltaX = 0.0f;
+    float halfWidth = this->Width / 2.0f;
+    if (this->Mario->Position.x > halfWidth)
+    {
+        this->Levels[this->LevelIdx].CameraPos.x += halfWidth - this->Mario->Position.x;
+        deltaX += this->Mario->Position.x - halfWidth;
+        this->Mario->Position.x = halfWidth;
+    }
+    else if (this->Mario->Position.x < 0)
+    {
+        //if (this->Levels[this->LevelIdx].VisibleTileOffset.x == 0)
+        //{
+        //    this->Mario->Position.x = 0;
+        //}
+        //else
+        {
+            this->Levels[this->LevelIdx].CameraPos.x -= this->Mario->Position.x;
+            this->Levels[this->LevelIdx].VisibleTileOffset.x = this->Levels[this->LevelIdx].VisibleTileOffset.x < 0 ? 0 : this->Levels[this->LevelIdx].VisibleTileOffset.x;
+            deltaX += this->Mario->Position.x;
+            this->Mario->Position.x = 0;
+        }
+    }
 
     timer += dt;
-    if (timer > 0.25)
+    if (timer <= 0.25)
     {
-        timer = 0;
-
-        // Handles collisions
-        this->GamePhysicsEngine->UpdateCharacter(this->Mario, this->Levels[this->LevelIdx]);
-
-        // Update current visual of the Mario/Luigi
-        this->Mario->SetCurrentVisual();
+        return;
     }
+    timer = 0.0f;
+
+    // Update visible tiles
+    if (deltaX != 0)
+    {
+        this->Levels[this->LevelIdx].VisibleTileOffset.x += deltaX > 0 ? ((deltaX / this->Levels[this->LevelIdx].UnitSize.x) + 1) : ((deltaX / this->Levels[this->LevelIdx].UnitSize.x) - 1);
+        this->Levels[this->LevelIdx].VisibleTileOffset.x = floor(this->Levels[this->LevelIdx].VisibleTileOffset.x);
+        this->Levels[this->LevelIdx].VisibleTileOffset.x = this->Levels[this->LevelIdx].VisibleTileOffset.x < 0 ? 0 : this->Levels[this->LevelIdx].VisibleTileOffset.x;
+        deltaX = 0.0f;
+    }
+
+    // Handles collisions
+    this->GamePhysicsEngine->Update(this->Mario, this->Levels[this->LevelIdx]);
+
+    // Update current visual of the Mario/Luigi
+    this->Mario->SetCurrentVisual();
 }
 
 void MarioGame::ProcessInput(float dt)

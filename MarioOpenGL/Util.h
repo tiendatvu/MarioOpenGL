@@ -9,8 +9,9 @@ public:
     static constexpr unsigned int TILE_SCALE = 3;
     static constexpr unsigned int CAMERA_WIDTH = 256;
     static constexpr unsigned int CAMERA_HEIGHT = 240;
-    static constexpr float MARIO_WALK_SPEED = 0.05f;
-    static constexpr float MARIO_RUN_SPEED = 15.0f;
+    static constexpr float MARIO_WALK_SPEED = 1.5f;
+    static constexpr float MARIO_RUN_SPEED = 3.0f;
+    static constexpr float MARIO_JUMP_SPEED = 7.0f;
 
     static const std::string TEXTURE_PLAYER;
     static const std::string TEXTURE_TILE_SET;

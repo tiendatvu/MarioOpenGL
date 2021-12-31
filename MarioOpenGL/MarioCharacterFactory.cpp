@@ -9,7 +9,7 @@ ICharacter* MarioCharacterFactory::CreateCharacter(unsigned int levelIndex, unsi
     glm::vec2 initSize = glm::vec2(48, 48);
     glm::vec3 initColor = glm::vec3(1, 1, 1);
     //glm::vec2 initSpeed = glm::vec2(Util::MARIO_WALK_SPEED, Util::MARIO_WALK_SPEED);
-    glm::vec2 initSpeed = glm::vec2(2.0f, 2.0f);
+    glm::vec2 initSpeed = glm::vec2(8.0f, 8.0f);
     MarioCharacter* mario = new MarioCharacter(Util::TEAM_0, Util::MARIO_STAND, Util::SMALL_STAGE,
                                                initPost, initSize, "Player", initColor, initSpeed);
     

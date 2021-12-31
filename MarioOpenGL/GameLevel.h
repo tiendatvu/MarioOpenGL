@@ -14,10 +14,13 @@ class GameLevel
 public:
     // camera position of the level
     glm::vec2 CameraPos;
+    glm::vec2 visibleStart;
+    glm::vec2 visibleEnd;
+
     // the number of tiles could be displayed on the screen
     glm::vec2 VisibleTiles;
-    glm::vec2 VisibleTileOffset;
     glm::vec2 UnitSize;
+    glm::vec2 TileNum;
     // level state
     std::vector<MultiSpriteGameObject> Bricks;
     // constructor
@@ -27,7 +30,7 @@ public:
     // render level
     void Draw(SpriteRenderer &renderer);
     // update level
-    void Update(glm::vec2 playerPos);
+    void Update(glm::vec2 &playerPos, const glm::vec2 &playerSize, const float &screenWidth);
 
     void ReInitTile(int index);
 private:

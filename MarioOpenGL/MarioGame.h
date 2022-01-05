@@ -29,7 +29,7 @@ public:
     bool Keys[1024];
     bool IsPressed;
     unsigned int Width, Height;
-    std::vector<GameLevel> Levels;
+    std::vector<GameLevel*> Levels;
     unsigned int           LevelIdx;
     // Contructor/Destructor
     MarioGame(unsigned int width, unsigned int height);

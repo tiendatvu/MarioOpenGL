@@ -8,7 +8,7 @@
 class PhysicsEngine
 {
 public:
-    void Update(ICharacter *character, GameLevel &gameLevel);
+    void Update(ICharacter *character, GameLevel *gameLevel);
 };
 
 #endif // !PHYSICS_ENGINE_H

@@ -14,8 +14,9 @@ class GameLevel
 public:
     // camera position of the level
     glm::vec2 CameraPos;
-    glm::vec2 visibleStart;
-    glm::vec2 visibleEnd;
+    glm::vec2 VisibleStart;
+    glm::vec2 VisibleEnd;
+    std::string DotData;
 
     // the number of tiles could be displayed on the screen
     glm::vec2 VisibleTiles;

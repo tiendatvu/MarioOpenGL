@@ -40,6 +40,7 @@ public:
     // Size to display on the screen
     glm::vec2 Size;
 
+
     RegionOfInterest(glm::vec2 region, glm::vec2 offset, glm::vec2 size) 
     : RegionScale(region), OffsetScale(offset), Size(size)
     {}

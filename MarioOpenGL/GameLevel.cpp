@@ -17,6 +17,7 @@ void GameLevel::Load(const char *file, unsigned int levelWidth, unsigned int lev
     std::string line;
     std::ifstream fstream(solDir + file);
     std::vector<std::vector<unsigned char>> tileData;
+    this->DotData = "";
 
     if (fstream)
     {
@@ -27,6 +28,7 @@ void GameLevel::Load(const char *file, unsigned int levelWidth, unsigned int lev
             while (sstream >> tileCode) // read each word seperated by clause
             {
                 row.push_back(tileCode);
+                this->DotData += tileCode;
             }
             tileData.push_back(row);
         }
@@ -41,16 +43,17 @@ void GameLevel::Update(glm::vec2 &playerPos, const glm::vec2 &playerSize, const 
 {
     const int delta = 2;
     int offsetX = -(this->CameraPos.x / this->UnitSize.x);
+
     int startX = offsetX - delta < 0 ? 0 : offsetX - delta;
     startX     = startX > TileNum.x ? TileNum.x : startX;
     int startY = 0;
     
     int endX = this->VisibleTiles.x + offsetX + delta;
     endX     = endX > TileNum.x ? TileNum.x : endX;
-    int endY = endX == TileNum.x ? this->VisibleTiles.y : this->VisibleTiles.y + delta;
+    int endY = TileNum.y;
 
-    visibleStart = glm::vec2(startX, startY);
-    visibleEnd = glm::vec2(endX, endY);
+    VisibleStart = glm::vec2(startX, startY);
+    VisibleEnd = glm::vec2(endX, endY);
 
     // update camera position with Mario movement
     float halfWidth = screenWidth / 2.0f;
@@ -85,11 +88,11 @@ void GameLevel::Update(glm::vec2 &playerPos, const glm::vec2 &playerSize, const 
 
 void GameLevel::Draw(SpriteRenderer &renderer)
 {
-    for (int x = visibleStart.x; x < visibleEnd.x; x++)
+    for (int y = VisibleStart.y; y < VisibleEnd.y; y++)
     {
-        for (int y = visibleStart.y; y < visibleEnd.y; y++)
+        for (int x = VisibleStart.x; x < VisibleEnd.x; x++)
         {
-            int idx = x * this->VisibleTiles.y + y;
+            int idx = TileNum.x * y + x;
             if (!this->Bricks[idx].IsDestroyed)
             {
                 this->Bricks[idx].Draw(renderer, this->CameraPos);
@@ -158,14 +161,22 @@ void GameLevel::init(std::vector<std::vector<unsigned char>> tileData, unsigned 
     this->VisibleTiles = glm::vec2(levelWidth / UnitSize.x, levelHeight / UnitSize.y);
     this->CameraPos = glm::vec2(0, 0);
     // Fix x, iterate y
-    // -> store inside the bricks list: y * width + x
-    for (unsigned int x = 0; x < TileNum.x; x++)
+    // -> store inside the bricks list: y * width + x    
+    for (unsigned int y = 0; y < TileNum.y; y++)
     {
-        for (unsigned int y = 0; y < TileNum.y; y++)
+        for (unsigned int x = 0; x < TileNum.x; x++)
         {
             glm::vec2 pos(UnitSize.x * x, UnitSize.y * y);
+            int idx = TileNum.x * y + x;
+            char tmpChar = this->DotData[idx];
             // check block type from level data (2D level array)
-            switch (tileData[y][x])
+            //if (tileData[y][x] != tmpChar)
+            //{
+            //    int a = 1;
+            //}
+
+            //switch (tileData[y][x])
+            switch (tmpChar)
             {
             case 'G':
                 // Ground

@@ -12,6 +12,12 @@ MarioGame::MarioGame(unsigned int width, unsigned int height)
 
 MarioGame::~MarioGame()
 {
+    for (int i = 0; i < this->Levels.size(); i++)
+    {
+        delete this->Levels[i];
+    }
+    this->Levels.clear();
+
     delete GameRenderer;
     delete Mario;
     delete WalkingCommand;
@@ -60,7 +66,8 @@ void MarioGame::Init()
     ResourceManager::LoadTexture("MarioOpenGL/Assets/Tiles/NES_SuperMarioBros_MarioAndLuigi.png", false, "Player");
 
     // load levels
-    GameLevel overWorldLv; overWorldLv.Load("MarioOpenGL/Assets/Levels/OverWorld.lvl", this->Width, this->Height);
+    GameLevel *overWorldLv = new GameLevel();
+    overWorldLv->Load("MarioOpenGL/Assets/Levels/OverWorld.lvl", this->Width, this->Height);
     this->Levels.insert(this->Levels.begin() + Util::OverWorld, overWorldLv);
     this->LevelIdx = Util::OverWorld;
 
@@ -81,7 +88,7 @@ static float timer = 0.0f;
 void MarioGame::Update(float dt)
 {
     // Update displayed items on the screen
-    this->Levels[this->LevelIdx].Update(this->Mario->Position, this->Mario->Size, this->Width);
+    this->Levels[this->LevelIdx]->Update(this->Mario->Position, this->Mario->Size, this->Width);
 
     // Handles collisions
     this->GamePhysicsEngine->Update(this->Mario, this->Levels[this->LevelIdx]);
@@ -164,7 +171,7 @@ void MarioGame::ProcessInput(float dt)
 void MarioGame::Render()
 {
     // draw level
-    this->Levels[this->LevelIdx].Draw(*this->GameRenderer);
+    this->Levels[this->LevelIdx]->Draw(*this->GameRenderer);
 
     // draw player
     this->Mario->Draw(*this->GameRenderer);

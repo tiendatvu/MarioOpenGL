@@ -42,24 +42,28 @@ void GameLevel::Load(const char *file, unsigned int levelWidth, unsigned int lev
 void GameLevel::Update(glm::vec2 &playerPos, const glm::vec2 &playerSize, const float &screenWidth)
 {
     const int delta = 2;
-    int offsetX = -(this->CameraPos.x / this->UnitSize.x);
+    int cameraTilePos = -(floor)(this->CameraPos.x / this->UnitSize.x);
 
-    int startX = offsetX - delta < 0 ? 0 : offsetX - delta;
-    startX     = startX > TileNum.x ? TileNum.x : startX;
+    int startX = cameraTilePos - delta < 0 ? 0 : cameraTilePos - delta;
+    startX     = startX > this->TileNum.x ? this->TileNum.x : startX;
     int startY = 0;
     
-    int endX = this->VisibleTiles.x + offsetX + delta;
-    endX     = endX > TileNum.x ? TileNum.x : endX;
-    int endY = TileNum.y;
+    int endX = this->VisibleTiles.x + cameraTilePos + delta;
+    endX     = endX > this->TileNum.x ? this->TileNum.x : endX;
+    int endY = this->TileNum.y;
 
-    VisibleStart = glm::vec2(startX, startY);
-    VisibleEnd = glm::vec2(endX, endY);
+    this->VisibleStart = glm::vec2(startX, startY);
+    this->VisibleEnd = glm::vec2(endX, endY);
 
     // update camera position with Mario movement
     float halfWidth = screenWidth / 2.0f;
     if (playerPos.x > halfWidth)
     {
-        if (endX < TileNum.x)
+        // camera được start tại tile [0,0] trên màn hình
+        // khi Mario di chuyển, camera được di chuyển theo với 1 tốc độ tương ứng tốc độ di chuyển của Mario.
+        // Xét nếu vị trí của Camera có thể khiến cho số lượng Visible Tile KHÔNG bị tràn ra khỏi biên (được định nghĩa săn xong các file Levels)
+        // -> Điều chỉnh lại giá trị của Camera Position
+        if (this->VisibleTiles.x + cameraTilePos < this->TileNum.x)
         {
             this->CameraPos.x += halfWidth - playerPos.x;
             playerPos.x = halfWidth;
@@ -88,11 +92,11 @@ void GameLevel::Update(glm::vec2 &playerPos, const glm::vec2 &playerSize, const 
 
 void GameLevel::Draw(SpriteRenderer &renderer)
 {
-    for (int y = VisibleStart.y; y < VisibleEnd.y; y++)
+    for (int y = this->VisibleStart.y; y < this->VisibleEnd.y; y++)
     {
-        for (int x = VisibleStart.x; x < VisibleEnd.x; x++)
+        for (int x = this->VisibleStart.x; x < this->VisibleEnd.x; x++)
         {
-            int idx = TileNum.x * y + x;
+            int idx = this->TileNum.x * y + x;
             if (!this->Bricks[idx].IsDestroyed)
             {
                 this->Bricks[idx].Draw(renderer, this->CameraPos);
@@ -135,7 +139,7 @@ void GameLevel::ReInitTile(int index)
 void GameLevel::init(std::vector<std::vector<unsigned char>> tileData, unsigned int levelWidth, unsigned int levelHeight)
 {
     // calculate dimensions
-    TileNum = glm::vec2(tileData[0].size(), tileData.size()); // note we can index vector at [0] since this function is only called if height > 0
+    this->TileNum = glm::vec2(tileData[0].size(), tileData.size()); // note we can index vector at [0] since this function is only called if height > 0
     //Texture2D tileSetSprite = ResourceManager::GetTexture(Util::TEXTURE_TILE_SET);
     Texture2D tileSetSprite = ResourceManager::GetTexture("TileSet");
     float unitWidth = 16.0f;
@@ -162,12 +166,12 @@ void GameLevel::init(std::vector<std::vector<unsigned char>> tileData, unsigned 
     this->CameraPos = glm::vec2(0, 0);
     // Fix x, iterate y
     // -> store inside the bricks list: y * width + x    
-    for (unsigned int y = 0; y < TileNum.y; y++)
+    for (unsigned int y = 0; y < this->TileNum.y; y++)
     {
-        for (unsigned int x = 0; x < TileNum.x; x++)
+        for (unsigned int x = 0; x < this->TileNum.x; x++)
         {
             glm::vec2 pos(UnitSize.x * x, UnitSize.y * y);
-            int idx = TileNum.x * y + x;
+            int idx = this->TileNum.x * y + x;
             char tmpChar = this->DotData[idx];
             // check block type from level data (2D level array)
             //if (tileData[y][x] != tmpChar)

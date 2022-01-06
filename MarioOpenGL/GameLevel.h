@@ -1,4 +1,4 @@
-#ifndef GAME_LEVEL_H
+﻿#ifndef GAME_LEVEL_H
 #define GAME_LEVEL_H
 #include <vector>
 
@@ -20,7 +20,9 @@ public:
 
     // the number of tiles could be displayed on the screen
     glm::vec2 VisibleTiles;
+    // kích thước cơ bản của 1 brick trong screen
     glm::vec2 UnitSize;
+    // số lượng của tile trong screen, theo 2 chiều x và y
     glm::vec2 TileNum;
     // level state
     std::vector<MultiSpriteGameObject> Bricks;

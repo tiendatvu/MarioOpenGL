@@ -42,7 +42,7 @@ void GameLevel::Load(const char *file, unsigned int levelWidth, unsigned int lev
 void GameLevel::Update(glm::vec2 &playerPos, const glm::vec2 &playerSize, const float &screenWidth)
 {
     const int delta = 2;
-    int cameraTilePos = -(floor)(this->CameraPos.x / this->UnitSize.x);
+    float cameraTilePos = -(this->CameraPos.x / this->UnitSize.x);
 
     int startX = cameraTilePos - delta < 0 ? 0 : cameraTilePos - delta;
     startX     = startX > this->TileNum.x ? this->TileNum.x : startX;
@@ -73,7 +73,8 @@ void GameLevel::Update(glm::vec2 &playerPos, const glm::vec2 &playerSize, const 
             if (playerPos.x >= screenWidth - playerSize.x)
             {
                 playerPos.x = screenWidth - playerSize.x;
-            }            
+            }
+            this->CameraPos.x = (this->VisibleTiles.x - this->TileNum.x) * this->UnitSize.x;
         }
     }
     else if (playerPos.x <= 0)

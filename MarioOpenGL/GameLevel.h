@@ -12,7 +12,7 @@
 class GameLevel
 {
 public:
-    // camera position of the level
+    // camera position of the level (top-left of the screen)
     glm::vec2 CameraPos;
     glm::vec2 VisibleStart;
     glm::vec2 VisibleEnd;

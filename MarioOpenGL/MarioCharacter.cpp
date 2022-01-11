@@ -1,6 +1,9 @@
-#include "MarioCharacter.h"
+﻿#include "MarioCharacter.h"
 #include "Util.h"
 #include "ResourceManager.h"
+
+const glm::vec2 MarioCharacter::WALK_SPEED = glm::vec2(8.0f, 8.0f);
+const glm::vec2 MarioCharacter::JUMP_SPEED = glm::vec2(5.0f, 12.0f);
 
 MarioCharacter::MarioCharacter(int teamNo, int status, int stage, glm::vec2 pos, glm::vec2 size, std::string spriteName, glm::vec3 color, glm::vec2 velocity)
 {
@@ -15,6 +18,7 @@ MarioCharacter::MarioCharacter(int teamNo, int status, int stage, glm::vec2 pos,
     this->Status = status;
     this->Stage = stage;
     this->IsRightToLeft = false;
+    this->IsOnGround = false;
 }
 
 void AssignInitProperties(int stage, int status, glm::vec2 &offset, glm::vec2 &delta, glm::vec2 &size, int &numRois);
@@ -64,6 +68,11 @@ void AssignInitProperties(int stage, int status, glm::vec2 &offset, glm::vec2 &d
             delta = glm::vec2(0.0f, 0.0f);
             numRois = 1;
             break;
+        case Util::MARIO_FALL:
+            offset = glm::vec2(96.0f, 8.0f);
+            delta = glm::vec2(0.0f, 0.0f);
+            numRois = 1;
+            break;
         case Util::MARIO_DIE:
             offset = glm::vec2(116.0f, 8.0f);
             delta = glm::vec2(0.0f, 0.0f);
@@ -106,4 +115,49 @@ void MarioCharacter::SetCurrentVisual()
                                  (this->RoiIdx == 0 && this->RoiIteratorDirection < 0) ?
                                  -this->RoiIteratorDirection : this->RoiIteratorDirection;
     this->RoiIdx += this->RoiIteratorDirection;
+}
+
+void MarioCharacter::UpdatePropertiesByStatus(int status)
+{
+    // SMALL MARIO không thể FIRE
+    //if (this->Stage == Util::SMALL_STAGE && status == Util::MARIO_FIRE)
+    //{
+    //    return;
+    //}
+
+    this->RoiIdx = 0;
+    this->Status = status;
+    this->Rois = this->RoisMap[this->Status];
+    this->IsOnGround = true;
+
+    switch (status)
+    {
+    case Util::MARIO_STAND:
+        this->Velocity = glm::vec2(0, 0);
+        break;
+    case Util::MARIO_WALK:
+        this->Velocity = this->WALK_SPEED;
+        break;
+    case Util::MARIO_ABOUT_RUN:
+        this->Velocity = glm::vec2(0, 0);
+        break;
+    case Util::MARIO_JUMP:
+        this->Velocity = this->JUMP_SPEED;
+        break;
+    case Util::MARIO_FALL:
+        this->Velocity = glm::vec2(0, this->WALK_SPEED.y / 2);
+        this->IsOnGround = false;
+        break;
+    case Util::MARIO_SIT:
+        this->Velocity = glm::vec2(0, 0);
+        break;
+    case Util::MARIO_FIRE:
+        this->Velocity = glm::vec2(0, 0);
+        break;
+    case Util::MARIO_DIE:
+        this->Velocity = glm::vec2(0, 5);
+        break;
+    default:
+        break;
+    }
 }

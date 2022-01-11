@@ -30,6 +30,7 @@ public:
         MARIO_WALK,
         MARIO_ABOUT_RUN,
         MARIO_JUMP,
+        MARIO_FALL,
         MARIO_SIT,
         MARIO_FIRE,
         MARIO_DIE

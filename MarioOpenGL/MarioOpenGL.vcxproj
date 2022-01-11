@@ -124,6 +124,7 @@
   <ItemGroup>
     <ClCompile Include="Dependencies\glad\src\glad.c" />
     <ClCompile Include="Dependencies\OtherLibs\stb_image.cpp" />
+    <ClCompile Include="FallCommand.cpp" />
     <ClCompile Include="GameLevel.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="ICharacter.cpp" />
@@ -143,6 +144,7 @@
     <ClCompile Include="WalkCommand.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FallCommand.h" />
     <ClInclude Include="ICommand.h" />
     <ClInclude Include="Dependencies\glad\include\glad\glad.h" />
     <ClInclude Include="Dependencies\glad\include\KHR\khrplatform.h" />

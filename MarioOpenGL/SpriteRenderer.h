@@ -19,7 +19,7 @@ public:
     void DrawSprite(Texture2D &texture, glm::vec2 position,
                     glm::vec2 roi, glm::vec2 offset,
                     glm::vec2 size = glm::vec2(10.0f, 10.0f), float rotate = 0.0f,
-                    glm::vec3 color = glm::vec3(1.0f), bool isFlip = false);
+                    glm::vec3 color = glm::vec3(1.0f), bool isFlipOnY = false);
 private:
     // Render state
     Shader shader;

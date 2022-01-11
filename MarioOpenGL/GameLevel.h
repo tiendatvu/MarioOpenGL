@@ -38,7 +38,7 @@ public:
     void ReInitTile(int index);
 private:
     // initialize level from tile data
-    void init(std::vector<std::vector<unsigned char>> tileData, unsigned int levelWidth, unsigned int levelHeight);
+    void init(unsigned int levelWidth, unsigned int levelHeight);
 };
 
 #endif // !GAME_LEVEL_H

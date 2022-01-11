@@ -78,6 +78,7 @@ void MarioGame::Init()
     // Init Commands
     this->WalkingCommand = new WalkCommand();
     this->JumpingCommand = new JumpCommand();
+    this->FallingCommand = new FallCommand();
     
 
     // Init Engines
@@ -85,10 +86,15 @@ void MarioGame::Init()
 }
 
 static float timer = 0.0f;
+static glm::vec2 marioPos = glm::vec2(-1, 0);
 void MarioGame::Update(float dt)
 {
     // Update displayed items on the screen
-    this->Levels[this->LevelIdx]->Update(this->Mario->Position, this->Mario->Size, this->Width);
+    if (marioPos.x - this->Mario->Position.x != 0)
+    {
+        this->Levels[this->LevelIdx]->Update(this->Mario->Position, this->Mario->Size, this->Width);
+        marioPos.x = this->Mario->Position.x;
+    }
 
     // Handles collisions
     this->GamePhysicsEngine->Update(this->Mario, this->Levels[this->LevelIdx]);
@@ -110,14 +116,11 @@ void MarioGame::ProcessInput(float dt)
     if (Mario->Status == Util::MARIO_JUMP)
     {
         this->JumpingCommand->Execute(Mario);
-
-#if !DEBUG
-        if (this->Keys[GLFW_KEY_Z])
-        {
-            Mario->UpdateRoisByStatus(Util::MARIO_STAND);
-        }
-#endif
-
+        return;
+    }
+    else if (Mario->Status == Util::MARIO_FALL)
+    {
+        this->FallingCommand->Execute(Mario);
         return;
     }
 
@@ -128,7 +131,7 @@ void MarioGame::ProcessInput(float dt)
         {
             this->IsPressed = true;
             Mario->IsRightToLeft = true;
-            Mario->UpdateRoisByStatus(Util::MARIO_WALK);
+            Mario->UpdatePropertiesByStatus(Util::MARIO_WALK);
         }
         this->WalkingCommand->Execute(Mario);
     }
@@ -139,7 +142,7 @@ void MarioGame::ProcessInput(float dt)
         {
             this->IsPressed = true;
             Mario->IsRightToLeft = false;
-            Mario->UpdateRoisByStatus(Util::MARIO_WALK);
+            Mario->UpdatePropertiesByStatus(Util::MARIO_WALK);
         }
         this->WalkingCommand->Execute(Mario);
     }
@@ -148,23 +151,24 @@ void MarioGame::ProcessInput(float dt)
         // jump
         if (!this->IsPressed)
         {
-            Mario->UpdateRoisByStatus(Util::MARIO_JUMP);
+            Mario->UpdatePropertiesByStatus(Util::MARIO_JUMP);
             this->IsPressed = true;
         }
         this->JumpingCommand->Execute(Mario);
+        Mario->IsOnGround = false;
     }
     else if (this->Keys[GLFW_KEY_ENTER] || this->Keys[GLFW_KEY_0])
     {
         // fire
         if (!this->IsPressed)
         {
-            Mario->UpdateRoisByStatus(Util::MARIO_FIRE);
+            Mario->UpdatePropertiesByStatus(Util::MARIO_FIRE);
             this->IsPressed = true;
         }
     }
     else
     {
-        Mario->UpdateRoisByStatus(Util::MARIO_STAND);
+        Mario->UpdatePropertiesByStatus(Util::MARIO_STAND);
     }
 }
 

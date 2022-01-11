@@ -16,8 +16,8 @@ void GameLevel::Load(const char *file, unsigned int levelWidth, unsigned int lev
     GameLevel level;
     std::string line;
     std::ifstream fstream(solDir + file);
-    std::vector<std::vector<unsigned char>> tileData;
     this->DotData = "";
+    this->TileNum = glm::vec2(0, 0);
 
     if (fstream)
     {
@@ -30,11 +30,12 @@ void GameLevel::Load(const char *file, unsigned int levelWidth, unsigned int lev
                 row.push_back(tileCode);
                 this->DotData += tileCode;
             }
-            tileData.push_back(row);
+            this->TileNum.y++;
         }
-        if (tileData.size() > 0)
+        if (this->DotData.length() > 0)
         {
-            this->init(tileData, levelWidth, levelHeight);
+            this->TileNum.x = (int)(this->DotData.length() / this->TileNum.y);
+            this->init(levelWidth, levelHeight);
         }
     }
 }
@@ -137,10 +138,8 @@ void GameLevel::ReInitTile(int index)
     this->Bricks[index].Rois.push_back(backgroundRegion);
 }
 
-void GameLevel::init(std::vector<std::vector<unsigned char>> tileData, unsigned int levelWidth, unsigned int levelHeight)
+void GameLevel::init(unsigned int levelWidth, unsigned int levelHeight)
 {
-    // calculate dimensions
-    this->TileNum = glm::vec2(tileData[0].size(), tileData.size()); // note we can index vector at [0] since this function is only called if height > 0
     //Texture2D tileSetSprite = ResourceManager::GetTexture(Util::TEXTURE_TILE_SET);
     Texture2D tileSetSprite = ResourceManager::GetTexture("TileSet");
     float unitWidth = 16.0f;
@@ -175,12 +174,6 @@ void GameLevel::init(std::vector<std::vector<unsigned char>> tileData, unsigned 
             int idx = this->TileNum.x * y + x;
             char tmpChar = this->DotData[idx];
             // check block type from level data (2D level array)
-            //if (tileData[y][x] != tmpChar)
-            //{
-            //    int a = 1;
-            //}
-
-            //switch (tileData[y][x])
             switch (tmpChar)
             {
             case 'G':

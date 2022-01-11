@@ -14,7 +14,7 @@ SpriteRenderer::~SpriteRenderer()
 void SpriteRenderer::DrawSprite(Texture2D &texture, glm::vec2 position,
                                 glm::vec2 roi, glm::vec2 offset,
                                 glm::vec2 size, float rotate,
-                                glm::vec3 color, bool isFlip)
+                                glm::vec3 color, bool isFlipOnY)
 {
     // prepare transformations
     this->shader.Use();
@@ -27,7 +27,7 @@ void SpriteRenderer::DrawSprite(Texture2D &texture, glm::vec2 position,
     // -> cần move origin về center của image trước khi rotate image
     model = glm::translate(model, glm::vec3(0.5f * size.x, 0.5f * size.y, 0.0f)); // move origin of rotation to the center of the quad
     model = glm::rotate(model, glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f)); // then rotate
-    model = isFlip ? glm::scale(model, glm::vec3(-1.0f, 1.0f, 1.0f)) : model; // flip on y -> thay đổi x, giữ nguyên y
+    model = isFlipOnY ? glm::scale(model, glm::vec3(-1.0f, 1.0f, 1.0f)) : model; // flip on y -> thay đổi x, giữ nguyên y
     model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.0f)); // move the origin back to the top-left of the quad
     model = glm::scale(model, glm::vec3(size, 1.0f)); // last scale
 

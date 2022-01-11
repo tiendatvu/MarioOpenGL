@@ -9,6 +9,7 @@
 #include "MarioCharacterFactory.h"
 #include "WalkCommand.h"
 #include "JumpCommand.h"
+#include "FallCommand.h"
 #include "PhysicsEngine.h"
 
 // Represent the current state of the game
@@ -47,6 +48,7 @@ public:
     // Commands
     ICommand *WalkingCommand;
     ICommand *JumpingCommand;
+    ICommand *FallingCommand;
 
     // Physics engine
     PhysicsEngine *GamePhysicsEngine;

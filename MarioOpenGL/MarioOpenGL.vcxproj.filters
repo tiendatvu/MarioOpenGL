@@ -72,6 +72,9 @@
     <ClCompile Include="IObservableSubject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FallCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dependencies\OtherLibs\stb_image.h">
@@ -132,6 +135,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsEngine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FallCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
